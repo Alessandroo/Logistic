@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-    <display-name>ncCityCon</display-name>
+    <display-name>Logistic</display-name>
     <welcome-file-list>
    		<welcome-file>default</welcome-file>
   	</welcome-file-list>
@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>RootServlet</servlet-name>
-        <servlet-class>com.citycon.controllers.servlets.RootServlet</servlet-class>
+        <servlet-class>com.logistic.controllers.servlets.RootServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RootServlet</servlet-name>
@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>SuggestionServlet</servlet-name>
-        <servlet-class>com.citycon.controllers.servlets.SuggestionServlet</servlet-class>
+        <servlet-class>com.logistic.controllers.servlets.SuggestionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SuggestionServlet</servlet-name>
@@ -35,7 +35,7 @@
     <!-- Security servlets -->
 	<servlet>
 		<servlet-name>SignInServlet</servlet-name>
-		<servlet-class>com.citycon.controllers.servlets.SignInServlet</servlet-class>
+		<servlet-class>com.logistic.controllers.servlets.SignInServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SignInServlet</servlet-name>
@@ -44,7 +44,7 @@
 
 	<servlet>
 		<servlet-name>SignUpServlet</servlet-name>
-		<servlet-class>com.citycon.controllers.servlets.SignUpServlet</servlet-class>
+		<servlet-class>com.logistic.controllers.servlets.SignUpServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SignUpServlet</servlet-name>
@@ -53,7 +53,7 @@
 
 	<servlet>
 		<servlet-name>LogoutServlet</servlet-name>
-		<servlet-class>com.citycon.controllers.servlets.LogoutServlet</servlet-class>
+		<servlet-class>com.logistic.controllers.servlets.LogoutServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>LogoutServlet</servlet-name>
@@ -65,7 +65,7 @@
 	<!-- Users branch -->
     <servlet>
     	<servlet-name>UserListServlet</servlet-name>
-    	<servlet-class>com.citycon.controllers.servlets.UserListServlet</servlet-class>
+    	<servlet-class>com.logistic.controllers.servlets.UserListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
     	<servlet-name>UserListServlet</servlet-name>
@@ -74,7 +74,7 @@
 
      <servlet>
     	<servlet-name>UserEditServlet</servlet-name>
-    	<servlet-class>com.citycon.controllers.servlets.UserEditServlet</servlet-class>
+    	<servlet-class>com.logistic.controllers.servlets.UserEditServlet</servlet-class>
     </servlet>
     <servlet-mapping>
     	<servlet-name>UserEditServlet</servlet-name>
@@ -86,7 +86,7 @@
 	<!-- Cities branch -->
 	<servlet>
 		<servlet-name>CityListServlet</servlet-name>
-		<servlet-class>com.citycon.controllers.servlets.CityListServlet</servlet-class>
+		<servlet-class>com.logistic.controllers.servlets.CityListServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CityListServlet</servlet-name>
@@ -95,7 +95,7 @@
 
 	<servlet>
 		<servlet-name>CityEditServlet</servlet-name>
-		<servlet-class>com.citycon.controllers.servlets.CityEditServlet</servlet-class>
+		<servlet-class>com.logistic.controllers.servlets.CityEditServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CityEditServlet</servlet-name>
@@ -105,7 +105,7 @@
 	<!-- Routers branch -->
 	<servlet>
 		<servlet-name>RouterListServlet</servlet-name>
-		<servlet-class>com.citycon.controllers.servlets.RouterListServlet</servlet-class>
+		<servlet-class>com.logistic.controllers.servlets.RouterListServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>RouterListServlet</servlet-name>
@@ -114,7 +114,7 @@
 
 	<servlet>
 		<servlet-name>RouterEditServlet</servlet-name>
-		<servlet-class>com.citycon.controllers.servlets.RouterEditServlet</servlet-class>
+		<servlet-class>com.logistic.controllers.servlets.RouterEditServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>RouterEditServlet</servlet-name>
@@ -124,7 +124,7 @@
 	<!-- Connections branch -->
 	<servlet>
 		<servlet-name>ConnectionListServlet</servlet-name>
-		<servlet-class>com.citycon.controllers.servlets.ConnectionListServlet</servlet-class>
+		<servlet-class>com.logistic.controllers.servlets.ConnectionListServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ConnectionListServlet</servlet-name>
@@ -133,7 +133,7 @@
 
 	<servlet>
 		<servlet-name>ConnectionEditServlet</servlet-name>
-		<servlet-class>com.citycon.controllers.servlets.ConnectionEditServlet</servlet-class>
+		<servlet-class>com.logistic.controllers.servlets.ConnectionEditServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ConnectionEditServlet</servlet-name>
@@ -144,7 +144,7 @@
     <!-- Filters -->
     <filter>
     	<filter-name>LoginFilter</filter-name>
-    	<filter-class>com.citycon.controllers.filters.LoginFilter</filter-class>
+    	<filter-class>com.logistic.controllers.filters.LoginFilter</filter-class>
     </filter>
  	<filter-mapping>
  		<filter-name>LoginFilter</filter-name>
@@ -186,7 +186,7 @@
 	<!-- User branch filters -->
 	 	<filter>
 	    	<filter-name>UserEditFilter</filter-name>
-	    	<filter-class>com.citycon.controllers.filters.UserEditFilter</filter-class>
+	    	<filter-class>com.logistic.controllers.filters.UserEditFilter</filter-class>
 	    </filter>
 	 	<filter-mapping>
 	 		<filter-name>UserEditFilter</filter-name>
@@ -195,7 +195,7 @@
 
 	 	<filter>
 	    	<filter-name>UserListFilter</filter-name>
-	    	<filter-class>com.citycon.controllers.filters.UserListFilter</filter-class>
+	    	<filter-class>com.logistic.controllers.filters.UserListFilter</filter-class>
 	    </filter>
 	 	<filter-mapping>
 	 		<filter-name>UserListFilter</filter-name>
@@ -205,7 +205,7 @@
 	 <!-- System units branch filters -->
 	 	<filter>
 	    	<filter-name>SystemEditFilter</filter-name>
-	    	<filter-class>com.citycon.controllers.filters.SystemEditFilter</filter-class>
+	    	<filter-class>com.logistic.controllers.filters.SystemEditFilter</filter-class>
 	    </filter>
 	 	<filter-mapping>
 	 		<filter-name>SystemEditFilter</filter-name>
@@ -222,7 +222,7 @@
 	 	
 	 	<filter>
 	    	<filter-name>SystemListFilter</filter-name>
-	    	<filter-class>com.citycon.controllers.filters.SystemListFilter</filter-class>
+	    	<filter-class>com.logistic.controllers.filters.SystemListFilter</filter-class>
 	    </filter>
 	 	<filter-mapping>
 	 		<filter-name>SystemListFilter</filter-name>
@@ -239,7 +239,7 @@
 
 	 	<!-- Listeners -->
 	 	<listener>
-	 		<listener-class>com.citycon.controllers.listeners.SessionHolder</listener-class>
+	 		<listener-class>com.logistic.controllers.listeners.SessionHolder</listener-class>
 	 	</listener>
 	 	
 </web-app>

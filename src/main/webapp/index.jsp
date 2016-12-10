@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 	<link rel="icon" href="favicon.ico" />
-	<title>CityCon</title>
+	<title>Logistic</title>
 </head>
 <body>
 	<div class="content-wrapper">
@@ -17,7 +17,7 @@
 				<div class="col-md-6 col-md-offset-3">
 					<div class="login-panel panel panel-default">
 						<center class="panel-heading" >
-							<h2>CityCon</h2>
+							<h2>Logistic</h2>
 						</center>
 						<div class="panel-body">
 							<a href="/signin" class="btn btn-primary btn-block btn-lg center-block">Sign in</a>
