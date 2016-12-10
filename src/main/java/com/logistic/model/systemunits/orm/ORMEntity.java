@@ -1,6 +1,7 @@
 package com.logistic.model.systemunits.orm;
 
 import com.logistic.dao.DAOAbstractFactory;
+import com.logistic.dao.interfaces.DAO;
 import com.logistic.dao.mysql.MySQLDAOFactory;
 import com.logistic.dao.exceptions.*;
 import com.logistic.model.systemunits.entities.Entity;
@@ -15,6 +16,7 @@ import com.logistic.model.systemunits.entities.Entity;
  */
 public abstract class ORMEntity {
 	static DAOAbstractFactory daoFactory = new MySQLDAOFactory();
+	DAO dao;
 	
 	/**
 	 * Ask DAO layer to create new entity. Sends the incapsulated Entity object 

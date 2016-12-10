@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.logistic.dao.exceptions.DAOException;
 import com.logistic.dao.exceptions.InvalidDataDAOException;
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 import com.logistic.model.systemunits.orm.ORMUser;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +62,7 @@ public class UserListServlet extends AbstractHttpServlet {
 			logger.trace("getPage of users with args page:{} itemsPerPage:{}, sortBy:{}, asc:{}",
 																page, itemsPerPage, sortBy, asc);
 
-			UserEntity[] users = ORMUser.getPage(page, itemsPerPage, sortBy, asc);
+			User[] users = ORMUser.getPage(page, itemsPerPage, sortBy, asc);
 			req.setAttribute("entityArray", users);
 			req.getRequestDispatcher(USER_LIST_PAGE).forward(req, res);
 		} catch (InvalidDataDAOException | NumberFormatException exception) {

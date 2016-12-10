@@ -1,7 +1,7 @@
 package com.logistic.controllers.filters;
 
 import com.logistic.model.Grant;
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -37,7 +37,7 @@ public class UserEditFilter extends AbstractHttpFilter implements Filter {
         		HttpServletRequest httpReq = (HttpServletRequest) req;
             	HttpSession session = httpReq.getSession(false);
             	if(session != null && session.getAttribute("user") != null) {
-		        	UserEntity user = (UserEntity)session.getAttribute("user");
+		        	User user = (User)session.getAttribute("user");
 		        	if (user.getLogin().equals(req.getParameter("login"))) {
 		        		chain.doFilter(req, res);
 		        		return;

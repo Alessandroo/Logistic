@@ -1,8 +1,5 @@
 package com.logistic.model;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-
 /**
  * Represents user grants for the app functionality. For every functionality
  * Grant class contains special field, that describes the level of actions,
@@ -16,13 +13,11 @@ public class Grant {
 	public final static int READ = 1;
 	public final static int EDIT = 2;
 
-	@Min(NONE)
-	@Max(EDIT)
 	private int usersBranchLevel = 0;
 
-	@Min(NONE)
-	@Max(EDIT)
 	private int systemUnitsBranchLevel = 0;
+	private int GuestBranchLevel = 0;
+	private int DriverBranchLevel = 0;
 	
 	/**
 	 * @param level the level of actions that can be performed with the users entities
@@ -41,6 +36,17 @@ public class Grant {
 		validateGrantLevel(level);
 		this.systemUnitsBranchLevel = level;
 	}
+
+	public void setGuestBranchLevel(int level) throws IllegalArgumentException{
+		validateGrantLevel(level);
+		this.GuestBranchLevel = level;
+	}
+
+	public void setDriverBranchLevel(int level) {
+		validateGrantLevel(level);
+		this.DriverBranchLevel = level;
+	}
+
 	/**
 	 * @return level the level of actions that can be performed with the users entities
 	 */
@@ -55,6 +61,14 @@ public class Grant {
 		return systemUnitsBranchLevel;
 	}
 
+	public int getGuestBranchLevel(){
+		return GuestBranchLevel;
+	}
+
+	public int getDriverBranchLevel(){
+		return DriverBranchLevel;
+	}
+
 	private void validateGrantLevel(int level) throws IllegalArgumentException {
 		if (level < NONE || level > EDIT) {
 			throw new IllegalArgumentException("The grant level must be in range +" + NONE +".."+ EDIT +", got "+level);
@@ -67,6 +81,10 @@ public class Grant {
 		grantString.append(usersBranchLevel);
 		grantString.append("), systemUnitsBranchLevel(");
 		grantString.append(systemUnitsBranchLevel);
+		grantString.append("), GuestBranchLevel(");
+		grantString.append(GuestBranchLevel);
+		grantString.append("), DriverBranchLevel(");
+		grantString.append(DriverBranchLevel);
 		grantString.append(")");
 		return grantString.toString();
 	}

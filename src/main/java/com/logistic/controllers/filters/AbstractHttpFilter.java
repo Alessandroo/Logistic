@@ -1,6 +1,6 @@
 package com.logistic.controllers.filters;
 
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -69,13 +69,13 @@ public abstract class AbstractHttpFilter {
                 access = false;
             } else {
                 try {
-                    UserEntity user = (UserEntity)session.getAttribute("user");
+                    User user = (User)session.getAttribute("user");
                     int userRights = user.getGrant().getUsersBranchLevel();
                     int systemUnitsRights = user.getGrant().getSystemUnitsBranchLevel();
                     access  =   ((userRights >= requiredUserRights) 
                         && (systemUnitsRights >= requiredSystemUnitsRights));
                 } catch (ClassCastException exception) {                    
-                    logger.warn("Cannot cast user object to UserEntity", exception);
+                    logger.warn("Cannot cast user object to User", exception);
                 } catch (NullPointerException e) {
                     logger.warn("Grant is null", e);
                 }

@@ -1,6 +1,6 @@
 package com.logistic.controllers.servlets;
 
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +37,7 @@ public class RootServlet extends AbstractHttpServlet {
             req.getRequestDispatcher(INDEX_PAGE).forward(req, res);
         } else {
             try {
-                UserEntity user = (UserEntity)session.getAttribute("user");
+                User user = (User)session.getAttribute("user");
                 if (user.getGroup().equals("admin")) {
                     res.sendRedirect(ADMIN_HOME);
                 } else {

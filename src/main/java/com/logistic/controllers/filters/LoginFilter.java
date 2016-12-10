@@ -12,13 +12,13 @@ import java.io.IOException;
 
 
 import com.logistic.model.Grant;
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Checks if user loggined into system. After login UserEntity object must be
+ * Checks if user loggined into system. After login User object must be
  * created in session scope. If there is no user object on the session scope, 
  * filter should not pass request futher. 
  *
@@ -45,7 +45,7 @@ public class LoginFilter extends AbstractHttpFilter implements Filter {
 				forwardToSecurityErrorPage(httpReq, httpRes);
 				return;
 			} else {
-				UserEntity user = (UserEntity)session.getAttribute("user");
+				User user = (User)session.getAttribute("user");
 
 				req.setAttribute("showLogoutBtn", true);
 

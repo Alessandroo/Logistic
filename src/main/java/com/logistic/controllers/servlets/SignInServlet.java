@@ -2,7 +2,7 @@ package com.logistic.controllers.servlets;
 
 import com.logistic.dao.exceptions.DAOException;
 import com.logistic.dao.exceptions.InvalidDataDAOException;
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 import com.logistic.model.systemunits.orm.ORMUser;
 
 import javax.servlet.RequestDispatcher;
@@ -35,7 +35,7 @@ public class SignInServlet extends AbstractHttpServlet {
     protected void doPost(HttpServletRequest req,
                           HttpServletResponse res) throws ServletException, IOException {
         Logger logger = LoggerFactory.getLogger("com.logistic.controllers.servlets.SignInServlet");
-        UserEntity user = new UserEntity();
+        User user = new User();
         user.setLogin(req.getParameter("login"));
         user.setPassword(req.getParameter("password"));
         ORMUser enteredUser = new ORMUser(); 

@@ -6,11 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 
-import com.logistic.model.systemunits.orm.ORMRouterConnection;
-import com.logistic.model.systemunits.entities.RouterConnectionEntity;
-import com.logistic.model.systemunits.entities.CityEntity;
-import com.logistic.model.systemunits.orm.ORMRouter;
-
 import com.logistic.model.systemunits.entities.validationgroups.ConnectionGroup;
 
 import com.logistic.dao.exceptions.DAOException;

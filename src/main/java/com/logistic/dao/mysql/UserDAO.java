@@ -5,7 +5,7 @@ import com.logistic.dao.exceptions.InternalDAOException;
 import com.logistic.dao.exceptions.InvalidDataDAOException;
 import com.logistic.model.Grant;
 import com.logistic.model.systemunits.entities.Entity;
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Date;
@@ -45,14 +45,14 @@ public class UserDAO extends MySQLDAO {
      * @throws InvalidDataDAOException
      * @throws InternalDAOException
      */
-    public UserEntity[] getPage(int page, int itemsPerPage, String sortBy, boolean asc)
+    public User[] getPage(int page, int itemsPerPage, String sortBy, boolean asc)
                                             throws InvalidDataDAOException, InternalDAOException {
 
 
         PreparedStatement search_users = null;
         ResultSet resultSet = null;
 
-        ArrayList<UserEntity> users = new ArrayList();
+        ArrayList<User> users = new ArrayList();
 
         String sorter = hashMap.get(sortBy);
 
@@ -95,7 +95,7 @@ public class UserDAO extends MySQLDAO {
 
             try {
                 while (resultSet.next()) {
-                    UserEntity user = new UserEntity();
+                    User user = new User();
                     user.setId(resultSet.getInt("id"));
                     user.setLogin(resultSet.getString("Login"));
                     user.setPassword(resultSet.getString("Pass"));
@@ -136,7 +136,7 @@ public class UserDAO extends MySQLDAO {
             }
         }
 
-        return users.toArray(new UserEntity[users.size()]);
+        return users.toArray(new User[users.size()]);
     }
 
 
@@ -147,7 +147,7 @@ public class UserDAO extends MySQLDAO {
      * @throws InvalidDataDAOException
      */
     public void create(Entity newElement) throws DublicateKeyDAOException, InternalDAOException, InvalidDataDAOException {
-        UserEntity user = null;
+        User user = null;
 
         Calendar calendar = Calendar.getInstance();
         Date startDate = new Date(calendar.getTime().getTime());
@@ -159,7 +159,7 @@ public class UserDAO extends MySQLDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            user = (UserEntity) newElement;
+            user = (User) newElement;
         }catch (ClassCastException e) {
             logger.info("Cast Entity in create failed.", e);
             throw new InvalidDataDAOException("Cast Entity in create are failed", e);
@@ -213,7 +213,7 @@ public class UserDAO extends MySQLDAO {
      * @throws InvalidDataDAOException
      */
     public void read(Entity readElement) throws InternalDAOException, InvalidDataDAOException {
-        UserEntity user = null;
+        User user = null;
 
         PreparedStatement search_user = null;
         ResultSet resultSet= null;
@@ -221,7 +221,7 @@ public class UserDAO extends MySQLDAO {
         String search = "select * from" + nameTable + "where `Login`=?";
 
         try {
-            user = (UserEntity) readElement;
+            user = (User) readElement;
         }catch (ClassCastException e) {
             logger.info("Cast Entity in read failed.", e);
             throw new InvalidDataDAOException("Cast Entity in read failed.", e);
@@ -305,14 +305,14 @@ public class UserDAO extends MySQLDAO {
      * @throws InternalDAOException
      */
     public void update(Entity updateElement) throws DublicateKeyDAOException, InvalidDataDAOException, InternalDAOException {
-        UserEntity user = null;
+        User user = null;
 
         PreparedStatement preparedStatement = null;
 
         String update = "update" + nameTable + "set `Login`=?, `Pass`=?, `E-mail`=?, `Name`=?, `Group`=? where `id`=?";
 
         try {
-            user = (UserEntity) updateElement;
+            user = (User) updateElement;
         }catch (ClassCastException e) {
             logger.info("Cast Entity in update failed.", e);
             throw new InvalidDataDAOException("Cast Entity in update failed.", e);

@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.logistic.dao.exceptions.DAOException;
 import com.logistic.dao.exceptions.InvalidDataDAOException;
-import com.logistic.model.systemunits.entities.CityEntity;
-import com.logistic.model.systemunits.orm.ORMCity;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
@@ -131,7 +129,7 @@ package com.logistic.controllers.servlets;
 
 import com.logistic.dao.exceptions.DAOException;
 import com.logistic.model.systemunits.entities.CityEntity;
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 import com.logistic.model.systemunits.orm.ORMCity;
 import com.logistic.model.systemunits.orm.ORMUser;
 
