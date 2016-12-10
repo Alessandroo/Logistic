@@ -46,18 +46,7 @@ public abstract class AbstractHttpServlet extends HttpServlet {
         req.setAttribute("errorMessage", "Internal server error");
         req.getRequestDispatcher(ERROR_PAGE).forward(req, res);
     }
-    /**
-     *	Aimed to validate and set default pagination variables. Return not null StringBuilder 
-     *	for represents new path, if page is negative or too lagre (and sets normalized page 
-     *	value in req resope). Also set default asc and itemsPerPage values if they don't exists.
-     * 
-     * @param  itemsNum 				number of itmes from DAO
-     * @param  parinationParameters 	HashMap of pagination parametes
-     * @param  req 						request object to get pagination variables
-     * @param  res 						response object to set correct pagination variables
-     * @return redirectPath 			if page number must be normalized
-     * @throws InternalDAOException 	if any internal DAO error occurs
-     */
+
     protected StringBuilder setPaginationVariables(int itemsNum, HashMap<String, String> paginationParameters, 
     					HttpServletRequest req, HttpServletResponse res) throws NumberFormatException {
     	

@@ -1,3 +1,4 @@
+/*
 package com.logistic.controllers.servlets;
 
 import com.logistic.dao.mysql.MySQLDAOFactory;
@@ -17,13 +18,15 @@ import java.io.IOException;
 import java.io.Writer;
 
 
+*/
 /**
  * Provides json-backend for suggestions. Supports suggestions for cities of
  * particular, country and routers of particular city.
  *
  * @author  Mike
  * @version  2.0
- */
+ *//*
+
 public class SuggestionServlet extends HttpServlet {
 
     private DAOAbstractFactory factory;
@@ -51,8 +54,8 @@ public class SuggestionServlet extends HttpServlet {
                                          + "\"country\" parameter for \"city\" field");
                         return;
                     }
-                    
-                    CitiesOfCountry dao = (CitiesOfCountry)factory.getCityDAO();                    
+
+                    CitiesOfCountry dao = (CitiesOfCountry)factory.getCityDAO();
                     CityEntity[] cities = dao.getCities(country);
 
                     Writer writer = res.getWriter();
@@ -65,10 +68,10 @@ public class SuggestionServlet extends HttpServlet {
                     }
                     writer.write("]}");
                     writer.flush(); 
-                    return; 
-                } catch(InternalDAOException e) {                               
+                    return;
+                } catch(InternalDAOException e) {
                     logger.warn("Cannot read suggestions", e);
-                } catch (Exception e) {           
+                } catch (Exception e) {
                     logger.warn("Exception", e);
                 }
                 break;
@@ -151,4 +154,4 @@ public class SuggestionServlet extends HttpServlet {
                                         throws ServletException, IOException {
         this.doGet(req, res);
     }
-}
+}*/

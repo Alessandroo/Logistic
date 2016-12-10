@@ -49,12 +49,12 @@
                 </tr>
                 <c:forEach items="${entityArray}" var="order">
                     <td class="unique" hidden="">${router.id}</td>
-                    <td><c:out value="${order.name}" /></td>
-                    <td><c:out value="${order.point_a}" /></td>
-                    <td><c:out value="${order.point_b}" /></td>
-                    <td><c:out value="${order.time_a}" /></td>
-                    <td><c:out value="${order.time_b}" /></td>
-                    <td><c:out value="${order.sum}" /></td>
+                    <td><c:out value="${order.client.login}" /></td>
+                    <td><c:out value="${order.road.pointBegin}" /></td>
+                    <td><c:out value="${order.road.pointEnd}" /></td>
+                    <td><c:out value="${order.timeTable.timeBegin}" /></td>
+                    <td><c:out value="${order.timeTable.timeEnd}" /></td>
+                    <td><c:out value="${order.calculation}" /></td>
                     </tr>
                 </c:forEach>
                 </tbody>
