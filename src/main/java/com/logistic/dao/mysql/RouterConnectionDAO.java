@@ -3,10 +3,7 @@ package com.logistic.dao.mysql;
 import com.logistic.dao.exceptions.*;
 import com.logistic.dao.interfaces.ConnectionsOfCity;
 import com.logistic.dao.interfaces.ConnectionsOfRouter;
-import com.logistic.model.systemunits.entities.CityEntity;
 import com.logistic.model.systemunits.entities.Entity;
-import com.logistic.model.systemunits.entities.RouterConnectionEntity;
-import com.logistic.model.systemunits.entities.RouterEntity;
 import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;

@@ -3,10 +3,6 @@ package com.logistic.controllers.servlets;
 import com.logistic.dao.exceptions.DAOException;
 import com.logistic.dao.exceptions.InvalidDataDAOException;
 
-import com.logistic.model.systemunits.entities.RouterEntity;
-import com.logistic.model.systemunits.entities.CityEntity;
-import com.logistic.model.systemunits.orm.ORMRouter;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

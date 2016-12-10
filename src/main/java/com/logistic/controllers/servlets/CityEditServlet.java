@@ -4,8 +4,6 @@ import com.logistic.dao.exceptions.DAOException;
 import com.logistic.dao.exceptions.DublicateKeyDAOException;
 import com.logistic.dao.exceptions.InternalDAOException;
 import com.logistic.dao.exceptions.InvalidDataDAOException;
-import com.logistic.model.systemunits.orm.ORMCity;
-import com.logistic.model.systemunits.entities.CityEntity;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;

@@ -1,33 +1,29 @@
 package com.logistic.model.systemunits.orm;
 
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 import com.logistic.dao.interfaces.DAO;
 import com.logistic.dao.exceptions.DAOException;
 
-import javax.validation.Valid;
-
 /**
- * ORM wrapper for the <code>UserEntity</code>. This class must be used in servlets to
+ * ORM wrapper for the <code>User</code>. This class must be used in servlets to
  * manipulate CRUD operations for the plain entity through the concrete DAO.
  * DAO object is obtained from <code>DAOAbstractFactory</code>, incapsulated in superclass 
  * <code>ORMEnitity</code>. DAO initialization is lazy, so feel free to instantiate ORMCity objects.
  *
  * @author Mike
  * @version 0.4
- * @see  UserEntity, ORMEntity
+ * @see  User , ORMEntity
  */
 public class ORMUser extends ORMEntity {
-	DAO dao;
 
-	@Valid
-	UserEntity user = new UserEntity();
+    User user = new User();
 
 	//Get-set interface for incapsulated object
-	public UserEntity getEntity() {
+	public User getEntity() {
 		return user;
 	}
 
-	public void setEntity(UserEntity user) {
+	public void setEntity(User user) {
 		this.user = user;
 	}
 
@@ -68,11 +64,11 @@ public class ORMUser extends ORMEntity {
 	 * @return cityEntity[] 	the array of users on demanded page.
 	 * @throws DAOException 	if any DAO error occurs
 	 */
-    public static UserEntity[] getPage(int page, int itemsPerPage, 
-    							String sortBy, boolean asc) throws DAOException {
+    public static User[] getPage(int page, int itemsPerPage,
+                                 String sortBy, boolean asc) throws DAOException {
 
     	DAO staticDAO = daoFactory.getUserDAO();
-        return (UserEntity[])staticDAO.getPage(page, itemsPerPage, sortBy, asc);
+        return (User[])staticDAO.getPage(page, itemsPerPage, sortBy, asc);
     }
     
     /**

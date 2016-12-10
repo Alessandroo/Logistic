@@ -2,8 +2,6 @@ package com.logistic.dao.interfaces;
 
 import com.logistic.dao.exceptions.InternalDAOException;
 import com.logistic.dao.exceptions.InvalidDataDAOException;
-import com.logistic.model.systemunits.entities.RouterConnectionEntity;
-import com.logistic.model.systemunits.entities.RouterEntity;
 
 /**
  * Created by Vojts on 20.11.2016.

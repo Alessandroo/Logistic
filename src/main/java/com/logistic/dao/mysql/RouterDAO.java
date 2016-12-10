@@ -4,9 +4,7 @@ import com.logistic.dao.exceptions.DublicateKeyDAOException;
 import com.logistic.dao.exceptions.InternalDAOException;
 import com.logistic.dao.exceptions.InvalidDataDAOException;
 import com.logistic.dao.interfaces.RoutersOfCity;
-import com.logistic.model.systemunits.entities.CityEntity;
 import com.logistic.model.systemunits.entities.Entity;
-import com.logistic.model.systemunits.entities.RouterEntity;
 import org.slf4j.LoggerFactory;
 
 import java.sql.PreparedStatement;

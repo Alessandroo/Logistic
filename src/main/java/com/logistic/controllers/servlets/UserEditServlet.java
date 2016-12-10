@@ -3,7 +3,7 @@ package com.logistic.controllers.servlets;
 import com.logistic.dao.exceptions.DAOException;
 import com.logistic.dao.exceptions.DublicateKeyDAOException;
 import com.logistic.controllers.listeners.SessionHolder;
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 import com.logistic.model.systemunits.orm.ORMUser;
 import org.slf4j.LoggerFactory;
 
@@ -86,7 +86,7 @@ public class UserEditServlet extends AbstractHttpServlet {
 					forwardToErrorPage("Not enough info to create new user", req, res);
 					return;
 				}
-				UserEntity user = new UserEntity();				
+				User user = new User();
 				user.setName(name);
 				user.setLogin(login);
 				user.setPassword(password);
@@ -152,7 +152,7 @@ public class UserEditServlet extends AbstractHttpServlet {
 			return;
 		}
 		
-		UserEntity user = new UserEntity();
+		User user = new User();
 		try {				
 			user.setId(Integer.parseInt(idString));
 			user.setName(name);
@@ -199,9 +199,9 @@ public class UserEditServlet extends AbstractHttpServlet {
 			forwardToErrorPage("Invalid id string", req, res);
 			return;
 		}
-		UserEntity currentUser;
+		User currentUser;
 		try {
-			currentUser = (UserEntity)req.getSession().getAttribute("user");
+			currentUser = (User)req.getSession().getAttribute("user");
 			if (user.getLogin().equals(currentUser.getLogin())) {
 				res.sendRedirect("/");
 				return;

@@ -1,6 +1,6 @@
 package com.logistic.controllers.listeners;
 
-import com.logistic.model.systemunits.entities.UserEntity;
+import com.logistic.model.systemunits.entities.User;
 import com.logistic.model.systemunits.orm.ORMUser;
 
 import javax.servlet.http.HttpSessionListener;
@@ -34,7 +34,7 @@ public class SessionHolder implements HttpSessionListener {
     public void sessionCreated(HttpSessionEvent event) {
         HttpSession newSession = event.getSession();
         if(newSession.getAttribute("user") != null) {
-            logger.trace("Created new session for user {}", ((UserEntity)newSession.getAttribute("user")).getLogin());
+            logger.trace("Created new session for user {}", ((User)newSession.getAttribute("user")).getLogin());
         } else {
             logger.trace("Created new session for null user");
         }        
@@ -45,7 +45,7 @@ public class SessionHolder implements HttpSessionListener {
     public void sessionDestroyed(HttpSessionEvent event) {
         HttpSession deleteSession = event.getSession();
         if(deleteSession.getAttribute("user") != null) {
-            logger.trace("Destroyed session for user {}", ((UserEntity)deleteSession.getAttribute("user")).getLogin());
+            logger.trace("Destroyed session for user {}", ((User)deleteSession.getAttribute("user")).getLogin());
         } else {
             logger.trace("Destroyed session for null user");
         }
@@ -53,14 +53,14 @@ public class SessionHolder implements HttpSessionListener {
         return;
     }
 
-    public static void updateUser(UserEntity userToUpdate) {
+    public static void updateUser(User userToUpdate) {
         Iterator<HttpSession> i = sessions.iterator();
         logger.debug("Updating user sessions");
         try {
             while(i.hasNext()) {
                 HttpSession currentSession = i.next();
                 if (currentSession.getAttribute("user") != null) {
-                    UserEntity user = (UserEntity)currentSession.getAttribute("user");
+                    User user = (User)currentSession.getAttribute("user");
 
                     logger.debug("Check update for {}", user.getLogin());
                     if(user.getId() == userToUpdate.getId()) {
@@ -77,13 +77,13 @@ public class SessionHolder implements HttpSessionListener {
             logger.warn("Exception during updating user", e);
         }
     }
-    public static void deleteUser(UserEntity userToDelete) {
+    public static void deleteUser(User userToDelete) {
         Iterator<HttpSession> i = sessions.iterator();
         try {
             while(i.hasNext()) {
                 HttpSession currentSession = i.next();
                 if (currentSession.getAttribute("user") != null) {
-                    UserEntity user = (UserEntity)currentSession.getAttribute("user");
+                    User user = (User)currentSession.getAttribute("user");
                     if(user.getId() == userToDelete.getId()) {
                         boolean success = sessions.remove(currentSession);
                         currentSession.invalidate();

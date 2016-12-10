@@ -6,9 +6,6 @@ import com.logistic.dao.interfaces.CitiesOfCountry;
 import com.logistic.dao.interfaces.RoutersOfCity;
 import com.logistic.dao.exceptions.InternalDAOException;
 
-import com.logistic.model.systemunits.entities.CityEntity;
-import com.logistic.model.systemunits.entities.RouterEntity;
-
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
