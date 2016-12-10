@@ -102,6 +102,24 @@
 		<url-pattern>/city</url-pattern>
 	</servlet-mapping>
 
+	<!-- Orders branch -->
+	<servlet>
+		<servlet-name>OrderListServlet</servlet-name>
+		<servlet-class>com.logistic.controllers.servlets.OrderListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderListServlet</servlet-name>
+		<url-pattern>/orders</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>OrderEditServlet</servlet-name>
+		<servlet-class>com.logistic.controllers.servlets.OrderEditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderEditServlet</servlet-name>
+		<url-pattern>/order</url-pattern>
+	</servlet-mapping>
 	<!-- Routers branch -->
 	<servlet>
 		<servlet-name>RouterListServlet</servlet-name>
