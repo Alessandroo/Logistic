@@ -7,6 +7,8 @@ import java.sql.Date;
 public class User extends Entity {
 	private String name;
 
+	private String last_name;
+
 	private String login;
 
 	private String password;	
@@ -24,6 +26,9 @@ public class User extends Entity {
 	// ----- Getters -----
 	public String getName() {
 		return name;
+	}
+	public String getLast_name() {
+		return last_name;
 	}
 	public String getLogin() {
 		return login;
@@ -43,10 +48,16 @@ public class User extends Entity {
 	public String getGroup() {
 		return group;
 	}
+	public Date getCreateDate() {
+		return createDate;
+	}
 
 	// ----- Setters -----
 	public void setName(String name) {
 		this.name = name;
+	}
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 	public void setLogin(String login) {
 		this.login = login;
