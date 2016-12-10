@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="content-wrapper">
-<%@ include file="/include/header.jsp" %>
+    <%@ include file="/include/header.jsp" %>
 	<div class="before-footer">
     <h1 align="center">Error</h1>
     <h3 align="center">

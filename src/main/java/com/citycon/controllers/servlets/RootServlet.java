@@ -38,13 +38,12 @@ public class RootServlet extends AbstractHttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) 
                                         throws ServletException, IOException {
-       
         logger.trace("Root access");
-        HttpSession session = req.getSession(false);      
+        HttpSession session = req.getSession(false);
 
         if(session == null || session.getAttribute("user") == null) {
             req.getRequestDispatcher(INDEX_PAGE).forward(req, res);
-        } else {          
+        } else {
             try {
                 UserEntity user = (UserEntity)session.getAttribute("user");
                 if (user.getGroup().equals("admin")) {
@@ -52,13 +51,14 @@ public class RootServlet extends AbstractHttpServlet {
                 } else {
                     res.sendRedirect(GUEST_OPERATOR_HOME);
                 }
-            } catch (NullPointerException | ClassCastException e) {          
-                
+            } catch (NullPointerException | ClassCastException e) {
+
                 logger.warn("Error during getting user from session ", e);
                 forwardToErrorPage("Internal server error", req, res);
             }
-            
+
         }
+
     }
 
     protected void doPost(HttpServletRequest req,
