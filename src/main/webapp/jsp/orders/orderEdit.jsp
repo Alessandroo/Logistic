@@ -22,8 +22,8 @@
 
 			<div class="form-fields">
 
-				<div class="label"><label for="name">Name:</label></div>
-				<input type="text" name="name" id="name" value="${order.client.login}" required autocomplete="off"></br>
+				<div class="label"><label for="login">Name:</label></div>
+				<input type="text" name="login" id="login" value="${order.client.login}" required autocomplete="off"></br>
 
 				<div class="label"><label for="weight">Weight(kg):</label></div>
 				<input type="text" pattern= "[0-9]{1,5}" name="weight" id="weight" value="${order.cargo.weight}" required autocomplete="off"></br>
