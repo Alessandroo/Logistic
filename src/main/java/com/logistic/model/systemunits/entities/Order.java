@@ -7,7 +7,6 @@ public class Order extends Entity{
     private User client;
     private DeliveryClass deliveryClass;
     private Cargo cargo;
-    private Route route;
     private Road road;
     private TimeTable timeTable;
     private float calculation;
@@ -36,10 +35,6 @@ public class Order extends Entity{
         return road;
     }
 
-    public Route getRoute() {
-        return route;
-    }
-
     public void setCalculation(float calculation) {
         this.calculation = calculation;
     }
@@ -62,9 +57,5 @@ public class Order extends Entity{
 
     public void setRoad(Road road) {
         this.road = road;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
     }
 }

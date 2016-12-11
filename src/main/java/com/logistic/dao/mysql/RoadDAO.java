@@ -196,4 +196,30 @@ public class RoadDAO extends MySQLDAO {
             close();
         }
     }
+
+    public int getRoadId(Road road) throws InternalDAOException, DublicateKeyDAOException {
+        int id = 0;
+
+        String search = "SELECT id FROM Road WHERE id_begin_point = (SELECT id FROM Point WHERE latitude=" +
+        road.getPointBegin().getX() +" AND longitude=" +road.getPointBegin().getY() +
+                ") and id_end_point=(SELECT id FROM Point WHERE latitude="+ road.getPointEnd().getX() + " and longitude=" +
+                road.getPointEnd().getY() + ")";
+
+
+        statement = getStatement();
+
+        try {
+            resultSet = statement.executeQuery(search);
+
+            if(resultSet.first()) {
+                id = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new DublicateKeyDAOException((String.format("getRoadId %s failed", nameTable)), e);
+        }
+        finally {
+            close();
+        }
+        return id;
+    }
 }

@@ -39,6 +39,7 @@ public class CargoDAO extends MySQLDAO {
                     TypeCargo typeCargo = new TypeCargo();
                     cargo.setId(resultSet.getInt("id"));
                     cargo.setWeight(resultSet.getFloat("weight"));
+                    cargo.setName(resultSet.getString("name"));
                     typeCargo.setName(resultSet.getString("class"));
                     typeCargo.setMax_speed(resultSet.getInt("max_speed"));
                     cargo.setTypeCargo(typeCargo);
@@ -68,8 +69,8 @@ public class CargoDAO extends MySQLDAO {
         Cargo cargo= null;
 
         String insert = "insert into" + nameTable +
-                "(`weight`, `id_type`)" +
-                " values (?, (select id from Type_cargo where class=?))";
+                "(`weight`, `name`, `id_type`)" +
+                " values (?, ?, (select id from Type_cargo where class=?))";
 
         try {
             cargo = (Cargo) newElement;
@@ -82,7 +83,8 @@ public class CargoDAO extends MySQLDAO {
 
         try {
             preparedStatement.setFloat(1, cargo.getWeight());
-            preparedStatement.setString(2,cargo.getTypeCargo().getName());
+            preparedStatement.setString(2, cargo.getName());
+            preparedStatement.setString(3,cargo.getTypeCargo().getName());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e){
@@ -125,6 +127,7 @@ public class CargoDAO extends MySQLDAO {
                 TypeCargo typeCargo = new TypeCargo();
                 cargo.setId(resultSet.getInt("id"));
                 cargo.setWeight(resultSet.getFloat("weight"));
+                cargo.setName(resultSet.getString("name"));
                 typeCargo.setName(resultSet.getString("class"));
                 typeCargo.setMax_speed(resultSet.getInt("max_speed"));
                 cargo.setTypeCargo(typeCargo);
@@ -150,7 +153,7 @@ public class CargoDAO extends MySQLDAO {
     public void update(Entity updateElement) throws DublicateKeyDAOException, InvalidDataDAOException, InternalDAOException {
         Cargo cargo = null;
 
-        String update = "update" + nameTable + "set weight=?, id_type=(select id from Type_cargo where class=?) where `id`=?";
+        String update = "update" + nameTable + "set weight=?, `name`=?, id_type=(select id from Type_cargo where class=?) where `id`=?";
 
         try {
             cargo = (Cargo) updateElement;
@@ -163,6 +166,7 @@ public class CargoDAO extends MySQLDAO {
 
         try {
             preparedStatement.setFloat(1, cargo.getWeight());
+            preparedStatement.setString(2, cargo.getName());
             preparedStatement.setString(2, cargo.getTypeCargo().getName());
             preparedStatement.setInt(3, cargo.getId());
 
