@@ -4,58 +4,159 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
-	<title>Edit</title>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link  type="text/css" href="css/main.css" rel="stylesheet">
+	<%--<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">--%>
+	<%--<link rel="stylesheet" type="text/css" href="/css/style.css">--%>
+	<script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+	<script src="https://api-maps.yandex.ru/2.0/?load=package.standard&mode=debug&lang=ru-RU" type="text/javascript"></script>
 </head>
 
 <body>
 <div class="content-wrapper">
 	<%@ include file="/html/header.jsp" %>
-	<div class="before-footer">
-		<div class="panel panel-default">
-			<div class="panel-heading">Edit</div>
-			<form class="form-horizontal" role="form" method="post" action="/orders" role="form" id="form">
-				<div class="form-group">
-					<label for="name" class="col-xs-3 control-label">Name</label>
-					<div class="col-xs-9">
-						<input class="form-control" placeholder="Name" id="login" name= "name" type="text" autofocus value="<c:out value="${order.client.login}"/> ">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="name" class="col-xs-3 control-label">Point A</label>
-					<div class="col-xs-9">
-						<input class="form-control" placeholder="point_a" id="point_a" name= "point_a" type="text" autofocus value="<c:out value="${order.road.pointBegin}"/> ">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="name" class="col-xs-3 control-label">Point B</label>
-					<div class="col-xs-9">
-						<input class="form-control" placeholder="point_b" id="point_b" name= "point_b" type="text" autofocus value="<c:out value="${order.road.pointEnd}"/> ">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="name" class="col-xs-3 control-label">Time A</label>
-					<div class="col-xs-9">
-						<input class="form-control" placeholder="time_a" id="time_a" name= "time_a" type="text" autofocus value="<c:out value="${order.timeTable.timeBegin}"/> ">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="name" class="col-xs-3 control-label">Time B</label>
-					<div class="col-xs-9">
-						<input class="form-control" placeholder="time_b" id="time_b" name= "time_b" type="text" autofocus value="<c:out value="${order.timeTable.timeEnd}"/> ">
-					</div>
-				</div>
-				<input id="id" name= "id" type="text" hidden="" autofocus value="<c:out value="${order.id}"/> ">
-				<div class="form-group">
-					<div class="col-xs-9">
-						<input type="submit" class="btn btn-primary btn-lg btn-block" value="Yes">
-					</div>
-				</div>
-			</form>
-		</div>
+	<div class="form">
+
+		<form action="sendorder" class="order-form">
+
+			<div class="form-fields">
+
+				<div class="label"><label for="name">Name:</label></div>
+				<input type="text" name="name" id="name" value="${order.client.login}" required autocomplete="off"></br>
+
+				<div class="label"><label for="weight">Weight(kg):</label></div>
+				<input type="text" pattern= "[0-9]{1,5}" name="weight" id="weight" value="${order.cargo.weight}" required autocomplete="off"></br>
+
+				<div class="label"><label for="type">Type(max spead):</label></div>
+				<select name="type" id="type" required autocomplete="off">
+					<option>Class1 - 16km/ch</option>
+					<option>Class2 - 40km/ch</option>
+					<option>Class3 - 64km/ch</option>
+					<option>Class4 - 97km/ch</option>
+					<option>Class5 - 127km/ch</option>
+				</select></br>
+
+				<div class="label"><label for="delivery-class">Delivery class:</label></div>
+				<select name="delivery" id="delivery-class" required autocomplete="off">
+					<option>Fast</option>
+					<option>Mid</option>
+					<option>Slow</option>
+				</select><br>
+
+				<div class="label"><label for="start-time">Start time:</label></div>
+				<input style="width: 58%" type="datetime-local" name="time" id="start-time" required autocomplete="off" value="${order.road.time.timeBegin}"></br>
+
+				<div class="label"><label for="point-a">Point A:</label></div>
+				<input class="hidden" type="text" name="Apoint" id="point-a" required autocomplete="off" value="${order.road.pointBegin.y} ${order.road.pointBegin.x}"></br>
+
+				<div class="label"><label for="point-b">Point B:</label></div>
+				<input class="hidden" type="text" name="Bpoint" id="point-b" required autocomplete="off" value="${order.road.pointEnd.y} ${order.road.pointEnd.x}"></br>
+
+				<button type="submit">Send order</button>
+
+			</div>
+
+			<div class="map">
+				<div id="mapID" style="width: 800px; height: 500px"></div>
+			</div>
+
+		</form>
+
 	</div>
+
+	<script type="text/javascript">
+		/* При успешной загрузке API выполняется
+		 соответствующая функция */
+		$(document).ready(function () {
+			ymaps.ready(function () {
+				myMap = new ymaps.Map("mapID", {
+					center: [57.5262, 38.3061], // Углич
+					zoom: 11,
+					controls: ['zoomControl']
+				}, {
+					balloonMaxWidth: 200,
+					searchControlProvider: 'yandex#search'
+				});
+				removeButton = new ymaps.control.Button("Сбросить");
+				myMap.controls.add(removeButton, {float: 'right'});
+				// Обработка события, возникающего при щелчке
+				// левой кнопкой мыши в любой точке карты.
+				// При возникновении такого события откроем балун.
+				var count = 0;
+				var placemarks = [];
+				removeButton.events.add('click', function () {
+					if (placemarks) {
+						if (placemarks.length == 1) {
+							myMap.geoObjects.remove(myPlacemark1);
+						} else {
+							myMap.geoObjects.remove(myPlacemark1);
+							myMap.geoObjects.remove(myPlacemark2);
+						}
+						count = 0;
+						$('#point-a').val('');
+						$('#point-b').val('');
+					}
+				});
+				var myPlacemark1, myPlacemark2;
+				myMap.events.add('click', function (e) {
+					if (!myMap.balloon.isOpen()) {
+						var coords = e.get('coords');
+						myMap.balloon.open(coords, {
+							contentBody:
+							'<p>Координаты: ' + [
+								coords[0].toPrecision(6),
+								coords[1].toPrecision(6)
+							].join(', ') + '</p>'
+						});
+						if (count == 0) {
+							$('#point-a').val(coords[0].toPrecision(6) + ' ' + coords[1].toPrecision(6));
+							count++;
+							myPlacemark1 = new ymaps.Placemark(coords, {
+								balloonContentBody: [
+									'<address>',
+									'<strong>',
+									coords[0].toPrecision(6),
+									coords[1].toPrecision(6),
+									'</strong>',
+									'</address>'
+								].join('')
+							}, {
+								preset: 'islands#redDotIcon'
+							});
+							myMap.geoObjects.add(myPlacemark1);
+							placemarks.push(myPlacemark2);
+						} else if (count == 1) {
+							$('#point-b').val(coords[0].toPrecision(6) + ' ' + coords[1].toPrecision(6));
+							count++;
+							myPlacemark2 = new ymaps.Placemark(coords, {
+								balloonContentBody: [
+									'<address>',
+									'<strong>',
+									coords[0].toPrecision(6),
+									coords[1].toPrecision(6),
+									'</strong>',
+									'</address>'
+								].join('')
+							}, {
+								preset: 'islands#redDotIcon'
+							});
+							myMap.geoObjects.add(myPlacemark2);
+							placemarks.push(myPlacemark2);
+						}
+					}
+					else {
+						myMap.balloon.close();
+					}
+				});
+				// Обработка события, возникающего при щелчке
+				// правой кнопки мыши в любой точке карты.
+				// При возникновении такого события покажем всплывающую подсказку
+				// в точке щелчка.
+			});
+		});
+	</script>
+
 	<%@ include file="/html/footer.html" %>
 </div>
 

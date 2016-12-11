@@ -4,10 +4,7 @@ import com.logistic.dao.exceptions.DAOException;
 import com.logistic.dao.exceptions.DublicateKeyDAOException;
 import com.logistic.dao.exceptions.InternalDAOException;
 import com.logistic.dao.exceptions.InvalidDataDAOException;
-import com.logistic.model.systemunits.entities.Order;
-import com.logistic.model.systemunits.entities.Point;
-import com.logistic.model.systemunits.entities.Road;
-import com.logistic.model.systemunits.entities.User;
+import com.logistic.model.systemunits.entities.*;
 import com.logistic.model.systemunits.orm.ORMOrder;
 import com.logistic.model.systemunits.orm.ORMUser;
 import org.slf4j.LoggerFactory;
@@ -78,6 +75,7 @@ public class OrderEditServlet extends AbstractHttpServlet {
             ORMOrder order = new ORMOrder();
             order.setEntity(simpleOrder);
             order.read();
+
             req.setAttribute("order", order);
             RequestDispatcher editView = req.getRequestDispatcher(ORDER_EDIT_PAGE);
             editView.forward(req, res);
