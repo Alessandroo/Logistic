@@ -20,31 +20,31 @@
 				<div class="form-group">
 					<label for="name" class="col-xs-3 control-label">Name</label>
 					<div class="col-xs-9">
-						<input class="form-control" placeholder="Name" id="name" name= "name" type="text" autofocus value="<c:out value="${order.name}"/> ">
+						<input class="form-control" placeholder="Name" id="name" name= "name" type="text" autofocus value="<c:out value="${order.client.login}"/> ">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="name" class="col-xs-3 control-label">Point A</label>
 					<div class="col-xs-9">
-						<input class="form-control" placeholder="point_a" id="point_a" name= "point_a" type="text" autofocus value="<c:out value="${order.point_a}"/> ">
+						<input class="form-control" placeholder="point_a" id="point_a" name= "point_a" type="text" autofocus value="<c:out value="${order.road.pointBegin}"/> ">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="name" class="col-xs-3 control-label">Point B</label>
 					<div class="col-xs-9">
-						<input class="form-control" placeholder="point_b" id="point_b" name= "point_b" type="text" autofocus value="<c:out value="${order.point_b}"/> ">
+						<input class="form-control" placeholder="point_b" id="point_b" name= "point_b" type="text" autofocus value="<c:out value="${order.road.pointEnd}"/> ">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="name" class="col-xs-3 control-label">Time A</label>
 					<div class="col-xs-9">
-						<input class="form-control" placeholder="time_a" id="time_a" name= "time_a" type="datetime" autofocus value="<c:out value="${order.time_a}"/> ">
+						<input class="form-control" placeholder="time_a" id="time_a" name= "time_a" type="text" autofocus value="<c:out value="${order.timeTable.timeBegin}"/> ">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="name" class="col-xs-3 control-label">Time B</label>
 					<div class="col-xs-9">
-						<input class="form-control" placeholder="time_b" id="time_b" name= "time_b" type="datetime" autofocus value="<c:out value="${order.time_b}"/> ">
+						<input class="form-control" placeholder="time_b" id="time_b" name= "time_b" type="text" autofocus value="<c:out value="${order.timeTable.timeEnd}"/> ">
 					</div>
 				</div>
 				<input id="id" name= "id" type="text" hidden="" autofocus value="<c:out value="${order.id}"/> ">

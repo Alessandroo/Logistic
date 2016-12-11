@@ -48,7 +48,7 @@
                     <th>sum</th>
                 </tr>
                 <c:forEach items="${entityArray}" var="order">
-                    <td class="unique" hidden="">${router.id}</td>
+                    <td class="unique" hidden="">${order.id}</td>
                     <td><c:out value="${order.client.login}" /></td>
                     <td><c:out value="${order.road.pointBegin}" /></td>
                     <td><c:out value="${order.road.pointEnd}" /></td>
