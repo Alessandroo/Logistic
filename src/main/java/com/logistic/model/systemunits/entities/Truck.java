@@ -8,8 +8,6 @@ public class Truck extends Entity {
     private String number;
     private Float max_capacity;
     private boolean condition;
-    private float mileage;
-    private String fuel_consumption;
 
     public boolean isCondition() {
         return condition;
@@ -17,14 +15,6 @@ public class Truck extends Entity {
 
     public Float getMax_capacity() {
         return max_capacity;
-    }
-
-    public float getMileage() {
-        return mileage;
-    }
-
-    public String getFuel_consumption() {
-        return fuel_consumption;
     }
 
     public String getModel() {
@@ -39,16 +29,8 @@ public class Truck extends Entity {
         this.condition = condition;
     }
 
-    public void setFuel_consumption(String fuel_consumption) {
-        this.fuel_consumption = fuel_consumption;
-    }
-
     public void setMax_capacity(Float max_capacity) {
         this.max_capacity = max_capacity;
-    }
-
-    public void setMileage(float mileage) {
-        this.mileage = mileage;
     }
 
     public void setModel(String model) {
