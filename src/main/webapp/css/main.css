@@ -1,0 +1,37 @@
+.order-form {
+    width: 1200px;
+    margin: auto;
+    margin-top: 20vh;
+}
+
+.form-fields {
+    width: 400px;
+    float: left;
+}
+
+.form-fields input, .form-fields select {
+    width: 160px;
+    margin-bottom: 5px;
+}
+
+.form-fields button {
+    margin-top: 15px;
+    width: 100px;
+    margin-left: 140px;
+}
+
+.form-fields .label {
+    display: inline-block;
+    width: 120px;
+}
+
+.form-fields label {
+    margin-top: 5px;
+    margin-right: 5px;
+    float: right;
+}
+
+.order-form .map {
+    width: 800px;
+    float: right;
+}

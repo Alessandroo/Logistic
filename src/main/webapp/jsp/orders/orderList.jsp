@@ -63,7 +63,7 @@
                 <div class="row">
 
                     <div class="col-sm-4">
-                        <a href="/router?action=add">
+                        <a href="/order?action=add">
                             <button class="btn btn-primary">Add</button>
                         </a>
                     </div>

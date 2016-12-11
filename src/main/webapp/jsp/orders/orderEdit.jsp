@@ -20,7 +20,7 @@
 				<div class="form-group">
 					<label for="name" class="col-xs-3 control-label">Name</label>
 					<div class="col-xs-9">
-						<input class="form-control" placeholder="Name" id="name" name= "name" type="text" autofocus value="<c:out value="${order.client.login}"/> ">
+						<input class="form-control" placeholder="Name" id="login" name= "name" type="text" autofocus value="<c:out value="${order.client.login}"/> ">
 					</div>
 				</div>
 				<div class="form-group">

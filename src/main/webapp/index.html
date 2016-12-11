@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link  type="text/css" href="css/main.css" rel="stylesheet">
+    <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.0/?load=package.standard&mode=debug&lang=ru-RU" type="text/javascript"></script>
+</head>
+<body>
+
+<div class="form">
+
+    <form action="sendorder" class="order-form">
+
+        <div class="form-fields">
+
+            <div class="label"><label for="name">Name:</label></div>
+            <input type="text" name="name" id="name" required autocomplete="off"></br>
+
+            <div class="label"><label for="weight">Weight:</label></div>
+            <input type="text" name="weight" id="weight" required autocomplete="off"></br>
+
+            <div class="label"><label for="type">Type:</label></div>
+            <select name="type" id="type" required autocomplete="off">
+                <option>1</option>
+                <option>2</option>
+            </select></br>
+
+            <div class="label"><label for="delivery-class">Delivery class:</label></div>
+            <select name="delivery" id="delivery-class" required autocomplete="off">
+                <option>1</option>
+                <option>2</option>
+            </select><br>
+
+            <div class="label"><label for="start-time">Start time:</label></div>
+            <input type="datetime-local" name="time" id="start-time" required autocomplete="off"></br>
+
+            <div class="label"><label for="point-a">Point A:</label></div>
+            <input class="hidden" type="text" name="Apoint" id="point-a" required autocomplete="off"></br>
+
+            <div class="label"><label for="point-b">Point B:</label></div>
+            <input class="hidden" type="text" name="Bpoint" id="point-b" required autocomplete="off"></br>
+
+            <button type="submit">Send order</button>
+
+        </div>
+
+        <div class="map">
+            <div id="mapID" style="width: 800px; height: 500px"></div>
+        </div>
+
+    </form>
+
+</div>
+
+<script type="text/javascript">
+    /* При успешной загрузке API выполняется
+     соответствующая функция */
+    $(document).ready(function () {
+        ymaps.ready(function () {
+            myMap = new ymaps.Map("mapID", {
+                center: [57.5262, 38.3061], // Углич
+                zoom: 11,
+                controls: ['zoomControl']
+            }, {
+                balloonMaxWidth: 200,
+                searchControlProvider: 'yandex#search'
+            });
+            removeButton = new ymaps.control.Button("Сбросить");
+            myMap.controls.add(removeButton, {float: 'right'});
+            // Обработка события, возникающего при щелчке
+            // левой кнопкой мыши в любой точке карты.
+            // При возникновении такого события откроем балун.
+            var count = 0;
+            var placemarks = [];
+            removeButton.events.add('click', function () {
+                if (placemarks) {
+                    if (placemarks.length == 1) {
+                        myMap.geoObjects.remove(myPlacemark1);
+                    } else {
+                        myMap.geoObjects.remove(myPlacemark1);
+                        myMap.geoObjects.remove(myPlacemark2);
+                    }
+                    count = 0;
+                    $('#point-a').val('');
+                    $('#point-b').val('');
+                }
+            });
+            var myPlacemark1, myPlacemark2;
+            myMap.events.add('click', function (e) {
+                if (!myMap.balloon.isOpen()) {
+                    var coords = e.get('coords');
+                    myMap.balloon.open(coords, {
+                        contentBody:
+                        '<p>Координаты: ' + [
+                            coords[0].toPrecision(6),
+                            coords[1].toPrecision(6)
+                        ].join(', ') + '</p>'
+                    });
+                    if (count == 0) {
+                        $('#point-a').val(coords[0].toPrecision(6) + ' ' + coords[1].toPrecision(6));
+                        count++;
+                        myPlacemark1 = new ymaps.Placemark(coords, {
+                            balloonContentBody: [
+                                '<address>',
+                                '<strong>',
+                                coords[0].toPrecision(6),
+                                coords[1].toPrecision(6),
+                                '</strong>',
+                                '</address>'
+                            ].join('')
+                        }, {
+                            preset: 'islands#redDotIcon'
+                        });
+                        myMap.geoObjects.add(myPlacemark1);
+                        placemarks.push(myPlacemark2);
+                    } else if (count == 1) {
+                        $('#point-b').val(coords[0].toPrecision(6) + ' ' + coords[1].toPrecision(6));
+                        count++;
+                        myPlacemark2 = new ymaps.Placemark(coords, {
+                            balloonContentBody: [
+                                '<address>',
+                                '<strong>',
+                                coords[0].toPrecision(6),
+                                coords[1].toPrecision(6),
+                                '</strong>',
+                                '</address>'
+                            ].join('')
+                        }, {
+                            preset: 'islands#redDotIcon'
+                        });
+                        myMap.geoObjects.add(myPlacemark2);
+                        placemarks.push(myPlacemark2);
+                    }
+                }
+                else {
+                    myMap.balloon.close();
+                }
+            });
+            // Обработка события, возникающего при щелчке
+            // правой кнопки мыши в любой точке карты.
+            // При возникновении такого события покажем всплывающую подсказку
+            // в точке щелчка.
+        });
+    });
+</script>
+
+</body>
+</html>
