@@ -97,22 +97,43 @@ public class OrderEditServlet extends AbstractHttpServlet {
             Road simpleRoad = new Road();
             Point simplePointA = new Point();
             String temp =req.getParameter("point-a");
-            String y,x;
-            temp.getChars(0,6,y,0);
-            temp.getChars(8,14,x,0);
-            simplePointA.setY(Float.valueOf(y));
-            simplePointA.setX(Float.valueOf(x));
+            String t[] = temp.split(" ");
+            simplePointA.setY(Float.valueOf(t[0]));
+            simplePointA.setX(Float.valueOf(t[1]));
             simpleRoad.setPointBegin(simplePointA);
 
             Point simplePointB = new Point();
             temp =req.getParameter("point-b");
-            temp.getChars(0,6,y,0);
-            temp.getChars(8,14,x,0);
-            simplePointA.setY(Float.valueOf(y));
-            simplePointA.setX(Float.valueOf(x));
-            simpleRoad.setPointBegin(simplePointA);
+            String tt[] = temp.split(" ");
+            simplePointB.setY(Float.valueOf(tt[0]));
+            simplePointB.setX(Float.valueOf(tt[1]));
+            simpleRoad.setPointEnd(simplePointB);
+
+            ORMRoad road = new ORMRoad();
+            road.setEntity(simpleRoad);
+            try {
+                road.update();
+            } catch (Exception e) {
+                road.create();
+            }     //вставка времени
+
+            Order simpleOrder = new Order();
+            simpleOrder.setCargo(simpleCargo);
+            simpleOrder.setClient(user.getEntity());
+            simpleOrder.setRoad(road.getEntity());
+            simpleOrder.setDeliveryClass(simpleDeliveryClass);
+            simpleOrder.setId(Integer.getInteger(req.getParameter("id")));
+
+            ORMOrder order = new ORMOrder();
+            order.setEntity(simpleOrder);
+            try {
+                order.read();
+            } catch (Exception e) {
+                order.create();
+            }
 
 
+            req.setAttribute("order", order);
 
             RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
             editView.forward(req, res);

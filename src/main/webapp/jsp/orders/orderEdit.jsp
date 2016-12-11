@@ -53,6 +53,7 @@
 				<div class="label"><label for="point-b">Point B:</label></div>
 				<input class="hidden" type="text" name="Bpoint" id="point-b" required autocomplete="off" value="${order.road.pointEnd.y} ${order.road.pointEnd.x}"></br>
 
+				<input type="text" name="id" id="id" value="${order.id}" hidden=""></br>
 				<button type="submit">Send order</button>
 
 			</div>
