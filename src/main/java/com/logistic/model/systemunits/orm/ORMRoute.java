@@ -1,6 +1,7 @@
 package com.logistic.model.systemunits.orm;
 
 import com.logistic.dao.exceptions.DAOException;
+import com.logistic.dao.interfaces.DAO;
 import com.logistic.model.systemunits.entities.Route;
 
 /**
@@ -27,6 +28,11 @@ public class ORMRoute extends ORMEntity {
     @Override
     public void delete() throws DAOException {
 
+    }
+
+    public static Route[] getPage(int page, int itemsPerPage) throws DAOException {
+        DAO staticDAO = daoFactory.getRouteDAO();
+        return (Route[])staticDAO.getPage(page, itemsPerPage);
     }
 
     public Route getEntity() {

@@ -1,7 +1,9 @@
 package com.logistic.model.systemunits.orm;
 
 import com.logistic.dao.exceptions.DAOException;
+import com.logistic.dao.interfaces.DAO;
 import com.logistic.model.systemunits.entities.Cargo;
+import com.logistic.model.systemunits.entities.Order;
 
 /**
  * Created by Vojts on 10.12.2016.
@@ -39,6 +41,11 @@ public class ORMCargo extends ORMEntity {
             dao = daoFactory.getCargoDAO();
         }
         dao.delete(cargo);
+    }
+
+    public static Cargo[] getPage(int page, int itemsPerPage) throws DAOException {
+        DAO staticDAO = daoFactory.getCargoDAO();
+        return (Cargo[])staticDAO.getPage(page, itemsPerPage);
     }
 
     public Cargo getEntity(){

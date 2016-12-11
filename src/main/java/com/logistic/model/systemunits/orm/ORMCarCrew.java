@@ -1,6 +1,7 @@
 package com.logistic.model.systemunits.orm;
 
 import com.logistic.dao.exceptions.DAOException;
+import com.logistic.dao.interfaces.DAO;
 import com.logistic.model.systemunits.entities.CarCrew;
 
 /**
@@ -27,6 +28,11 @@ public class ORMCarCrew extends ORMEntity {
     @Override
     public void delete() throws DAOException {
 
+    }
+
+    public static CarCrew[] getPage(int page, int itemsPerPage) throws DAOException {
+        DAO staticDAO = daoFactory.getCarCrewDAO();
+        return (CarCrew[])staticDAO.getPage(page, itemsPerPage);
     }
 
     public CarCrew getEntity(){
