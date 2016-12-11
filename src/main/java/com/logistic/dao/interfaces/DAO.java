@@ -16,7 +16,7 @@ public interface DAO {
 
     void delete(Entity deleteElement) throws InvalidDataDAOException, InternalDAOException;
 
-    Entity[] getPage(int page, int itemsPerPage, String sortBy, boolean asc) 
+    Entity[] getPage(int page, int itemsPerPage)
 		throws InvalidDataDAOException, InternalDAOException;
 
     int count_element() throws InternalDAOException;

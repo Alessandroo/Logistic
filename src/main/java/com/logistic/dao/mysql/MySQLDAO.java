@@ -16,10 +16,13 @@ import java.util.Map;
 public abstract class MySQLDAO implements DAO {
 
     protected String nameTable;
-    protected Connection connection;
-    protected Logger logger;
 
-    protected Map<String, String> hashMap = new HashMap<>();
+    protected Connection connection;
+    protected Statement statement;
+    protected PreparedStatement preparedStatement;
+    protected ResultSet resultSet;
+
+    protected Logger logger;
 
     /**
      * @throws InternalDAOException
@@ -27,16 +30,54 @@ public abstract class MySQLDAO implements DAO {
     protected MySQLDAO() throws InternalDAOException {
     }
 
-    protected Connection getConnection() throws InternalDAOException {
-        logger.trace("Get connection");
-        return MySQLDAOConnection.getInstance().getConnection();
+    private Connection getConnection() throws InternalDAOException {
+        Connection connection = MySQLDAOConnection.getInstance().getConnection();
+        return connection;
     }
 
-
-    protected void closeConnection() throws InternalDAOException {
+    protected Statement getStatement() throws InternalDAOException{
+        Statement statement;
         try {
-            if(!connection.isClosed()){
-                connection.close();
+            connection = getConnection();
+            statement = connection.createStatement();
+        }catch (SQLException e) {
+            throw new InternalDAOException(e);
+        }
+        return statement;
+    }
+
+    protected PreparedStatement getPrepareStatement(String search) throws InternalDAOException{
+        PreparedStatement preparedStatement;
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(search);
+        }catch (SQLException e) {
+            throw new InternalDAOException(e);
+        }
+        return preparedStatement;
+    }
+
+    protected void close() throws InternalDAOException {
+        try {
+            if(connection != null){
+                if(!connection.isClosed()){
+                    connection.close();
+                }
+            }
+            if(statement != null) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
+            }
+            if(preparedStatement != null) {
+                if (!preparedStatement.isClosed()) {
+                    preparedStatement.close();
+                }
+            }
+            if(resultSet!= null) {
+                if (!resultSet.isClosed()) {
+                    resultSet.close();
+                }
             }
         } catch (SQLException e) {
             logger.error("Close Connection failed", e);
@@ -53,16 +94,7 @@ public abstract class MySQLDAO implements DAO {
 
         String search = String.format("select count(`id`) from %s", nameTable);
 
-        Statement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = getConnection();
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            logger.warn("Statement in get count wasn't created", e);
-            throw new InternalDAOException("Statement in get count wasn't created", e);
-        }
+        statement = getStatement();
 
         try {
             resultSet = statement.executeQuery(search);
@@ -79,24 +111,7 @@ public abstract class MySQLDAO implements DAO {
             throw new InternalDAOException("Get count elements failed", e);
         }
         finally {
-            closeConnection();
-
-            if (statement!=null){
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    logger.warn("Close Statement in get count false", e);
-                    throw new InternalDAOException(e);
-                }
-            }
-            if (resultSet!= null){
-                try{
-                    resultSet.close();
-                }catch (SQLException e){
-                    logger.warn("Close ResultSet in get count false",e);
-                    throw new InternalDAOException(e);
-                }
-            }
+            close();
         }
 
         return count;
@@ -109,22 +124,12 @@ public abstract class MySQLDAO implements DAO {
      */
     public void delete(Entity deleteElement) throws InternalDAOException, InvalidDataDAOException {
 
-        PreparedStatement preparedStatement = null;
+        String delete = "delete from" + nameTable + "where `id`=" + deleteElement.getId();
 
-        String delete = "delete from" + nameTable + "where `id`=?";
-
-        try {
-            connection = getConnection();
-            preparedStatement = connection.prepareStatement(delete);
-        }catch (SQLException e) {
-            logger.warn("Prepare statement in delete wasn't created", e);
-            throw new InternalDAOException("Prepare statement in delete wasn't created", e);
-        }
+        statement = getStatement();
 
         try {
-            preparedStatement.setInt(1, deleteElement.getId());
-
-            preparedStatement.executeUpdate();
+            statement.executeUpdate(delete);
 
             logger.trace("Delete was successful");
         } catch (SQLException e) {
@@ -132,16 +137,7 @@ public abstract class MySQLDAO implements DAO {
             throw new InvalidDataDAOException("Delete failed", e);
         }
         finally {
-            closeConnection();
-
-            if (preparedStatement != null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    logger.warn("Close PrepareStatement in delete false", e);
-                    throw new InternalDAOException(e);
-                }
-            }
+            close();
         }
     }
 

@@ -62,7 +62,7 @@ public class UserListServlet extends AbstractHttpServlet {
 			logger.trace("getPage of users with args page:{} itemsPerPage:{}, sortBy:{}, asc:{}",
 																page, itemsPerPage, sortBy, asc);
 
-			User[] users = ORMUser.getPage(page, itemsPerPage, sortBy, asc);
+			User[] users = ORMUser.getPage(page, itemsPerPage);
 			req.setAttribute("entityArray", users);
 			req.getRequestDispatcher(USER_LIST_PAGE).forward(req, res);
 		} catch (InvalidDataDAOException | NumberFormatException exception) {
