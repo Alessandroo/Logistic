@@ -11,22 +11,34 @@ public class ORMOrder extends ORMEntity {
 
     @Override
     public void create() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getOrderDAO();
+        }
+        dao.create(order);
     }
 
     @Override
     public void read() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getOrderDAO();
+        }
+        dao.read(order);
     }
 
     @Override
     public void update() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getOrderDAO();
+        }
+        dao.update(order);
     }
 
     @Override
     public void delete() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getOrderDAO();
+        }
+        dao.delete(order);
     }
 
     public Order getEntity() {

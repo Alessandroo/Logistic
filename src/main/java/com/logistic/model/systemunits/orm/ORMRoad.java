@@ -11,22 +11,34 @@ public class ORMRoad extends ORMEntity {
 
     @Override
     public void create() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getRoadDAO();
+        }
+        dao.create(road);
     }
 
     @Override
     public void read() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getRoadDAO();
+        }
+        dao.read(road);
     }
 
     @Override
     public void update() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getRoadDAO();
+        }
+        dao.update(road);
     }
 
     @Override
     public void delete() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getRoadDAO();
+        }
+        dao.delete(road);
     }
 
     public Road getEntity() {
