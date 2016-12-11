@@ -1,6 +1,7 @@
 package com.logistic.model.systemunits.orm;
 
 import com.logistic.dao.exceptions.DAOException;
+import com.logistic.dao.interfaces.DAO;
 import com.logistic.model.systemunits.entities.Order;
 
 /**
@@ -39,6 +40,11 @@ public class ORMOrder extends ORMEntity {
             dao = daoFactory.getOrderDAO();
         }
         dao.delete(order);
+    }
+
+    public static Order[] getPage(int page, int itemsPerPage) throws DAOException {
+        DAO staticDAO = daoFactory.getOrderDAO();
+        return (Order[])staticDAO.getPage(page, itemsPerPage);
     }
 
     public Order getEntity() {

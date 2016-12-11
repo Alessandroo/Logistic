@@ -1,26 +1,25 @@
 package com.logistic.model.systemunits.entities;
 
-import java.util.ArrayList;
-
 /**
  * Created by Vojts on 10.12.2016.
  */
 public class Route extends Entity {
-    private ArrayList<Road> roadEntities;
+    private Road road;
+    private Order order;
 
-    public ArrayList<Road> getRoadEntities() {
-        return roadEntities;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setRoadEntities(ArrayList<Road> roadEntities) {
-        this.roadEntities = roadEntities;
+    public Road getRoad() {
+        return road;
     }
 
-    public void addRoad(int position, Road road){
-        roadEntities.add(position, road);
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public void addRoad(Road road){
-        roadEntities.add(road);
+    public void setRoad(Road road) {
+        this.road = road;
     }
 }
