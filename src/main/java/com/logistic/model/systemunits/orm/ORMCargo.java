@@ -11,22 +11,34 @@ public class ORMCargo extends ORMEntity {
 
     @Override
     public void create() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getCargoDAO();
+        }
+        dao.create(cargo);
     }
 
     @Override
     public void read() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getCargoDAO();
+        }
+        dao.read(cargo);
     }
 
     @Override
     public void update() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getCargoDAO();
+        }
+        dao.update(cargo);
     }
 
     @Override
     public void delete() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getCargoDAO();
+        }
+        dao.delete(cargo);
     }
 
     public Cargo getEntity(){
