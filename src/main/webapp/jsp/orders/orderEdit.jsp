@@ -18,7 +18,7 @@
 	<%@ include file="/html/header.jsp" %>
 	<div class="form">
 
-		<form action="sendorder" class="order-form">
+		<form class="order-form" method="post" action="/order">
 
 			<div class="form-fields">
 
