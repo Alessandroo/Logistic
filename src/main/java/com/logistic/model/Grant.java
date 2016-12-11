@@ -16,7 +16,7 @@ public class Grant {
 	private int usersBranchLevel = 0;
 
 	private int systemUnitsBranchLevel = 0;
-	private int GuestBranchLevel = 0;
+	private int ClientBranchLevel = 0;
 	private int DriverBranchLevel = 0;
 	
 	/**
@@ -37,9 +37,9 @@ public class Grant {
 		this.systemUnitsBranchLevel = level;
 	}
 
-	public void setGuestBranchLevel(int level) throws IllegalArgumentException{
+	public void setClientBranchLevel(int level) throws IllegalArgumentException{
 		validateGrantLevel(level);
-		this.GuestBranchLevel = level;
+		this.ClientBranchLevel = level;
 	}
 
 	public void setDriverBranchLevel(int level) {
@@ -61,8 +61,8 @@ public class Grant {
 		return systemUnitsBranchLevel;
 	}
 
-	public int getGuestBranchLevel(){
-		return GuestBranchLevel;
+	public int getClientBranchLevel(){
+		return ClientBranchLevel;
 	}
 
 	public int getDriverBranchLevel(){
@@ -73,19 +73,5 @@ public class Grant {
 		if (level < NONE || level > EDIT) {
 			throw new IllegalArgumentException("The grant level must be in range +" + NONE +".."+ EDIT +", got "+level);
 		}
-	}
-	
-	public String toString() {
-		StringBuilder grantString = new StringBuilder();
-		grantString.append("Grant: usersBranchLevel(");
-		grantString.append(usersBranchLevel);
-		grantString.append("), systemUnitsBranchLevel(");
-		grantString.append(systemUnitsBranchLevel);
-		grantString.append("), GuestBranchLevel(");
-		grantString.append(GuestBranchLevel);
-		grantString.append("), DriverBranchLevel(");
-		grantString.append(DriverBranchLevel);
-		grantString.append(")");
-		return grantString.toString();
 	}
 }
