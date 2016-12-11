@@ -59,17 +59,25 @@ public abstract class MySQLDAO implements DAO {
 
     protected void close() throws InternalDAOException {
         try {
-            if(!connection.isClosed()){
-                connection.close();
+            if(connection != null){
+                if(!connection.isClosed()){
+                    connection.close();
+                }
             }
-            if(!statement.isClosed()){
-                statement.close();
+            if(statement != null) {
+                if (!statement.isClosed()) {
+                    statement.close();
+                }
             }
-            if(!preparedStatement.isClosed()){
-                preparedStatement.close();
+            if(preparedStatement != null) {
+                if (!preparedStatement.isClosed()) {
+                    preparedStatement.close();
+                }
             }
-            if(!resultSet.isClosed()){
-                resultSet.close();
+            if(resultSet!= null) {
+                if (!resultSet.isClosed()) {
+                    resultSet.close();
+                }
             }
         } catch (SQLException e) {
             logger.error("Close Connection failed", e);

@@ -79,7 +79,7 @@ public class UserDAO extends MySQLDAO {
 
         String insert = "insert into" + nameTable +
                 "(`login`, `password`, `email`, `name`, `last_name`, `group`, `telephone`, `create_date`)" +
-                " values (?, ?, ?, ?, ?, ?)";
+                " values (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             user = (User) newElement;
@@ -117,7 +117,7 @@ public class UserDAO extends MySQLDAO {
     public void read(Entity readElement) throws InternalDAOException, InvalidDataDAOException {
         User user = null;
 
-        String search = "select * from" + nameTable + "where `Login`=?";
+        String search = "select * from" + nameTable + "where `login`=?";
 
         try {
             user = (User) readElement;
@@ -127,7 +127,7 @@ public class UserDAO extends MySQLDAO {
         }
 
         if (user.getPassword() != null){
-            search += " and `Pass`=?";
+            search += " and `password`=?";
         }
 
         if(user.getLogin() == null){
@@ -178,7 +178,7 @@ public class UserDAO extends MySQLDAO {
     public void update(Entity updateElement) throws DublicateKeyDAOException, InvalidDataDAOException, InternalDAOException {
         User user = null;
 
-        String update = "update" + nameTable + "set `login`=?, `password`=?, `email`=?, `name`=?, `last_name`, `group`=?, `telephone`=? where `id`=?";
+        String update = "update" + nameTable + "set `login`=?, `password`=?, `email`=?, `name`=?, `last_name`=?, `group`=?, `telephone`=? where `id`=?";
 
         try {
             user = (User) updateElement;

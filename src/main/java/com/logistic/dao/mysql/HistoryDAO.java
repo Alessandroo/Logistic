@@ -31,7 +31,7 @@ public class HistoryDAO extends MySQLDAO {
     }
 
     @Override
-    public Entity[] getPage(int page, int itemsPerPage, String sortBy, boolean asc) throws InvalidDataDAOException, InternalDAOException {
+    public Entity[] getPage(int page, int itemsPerPage) throws InvalidDataDAOException, InternalDAOException {
         return new Entity[0];
     }
 }
