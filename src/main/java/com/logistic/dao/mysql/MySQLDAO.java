@@ -22,8 +22,6 @@ public abstract class MySQLDAO implements DAO {
     protected PreparedStatement preparedStatement;
     protected ResultSet resultSet;
 
-    protected Logger logger;
-
     /**
      * @throws InternalDAOException
      */

@@ -12,26 +12,39 @@ public class ORMCarCrew extends ORMEntity {
 
     @Override
     public void create() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getCarCrewDAO();
+        }
+        dao.create(carCrew);
     }
 
     @Override
     public void read() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getCarCrewDAO();
+        }
+        dao.read(carCrew);
     }
 
     @Override
     public void update() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getCarCrewDAO();
+        }
+        dao.update(carCrew);
     }
 
     @Override
     public void delete() throws DAOException {
-
+        if (dao == null) {
+            dao = daoFactory.getCarCrewDAO();
+        }
+        dao.delete(carCrew);
     }
 
     public static int getCount() throws DAOException {
-        return 0;
+        DAO staticDAO = daoFactory.getCarCrewDAO();
+        return staticDAO.count_element();
     }
 
     public static CarCrew[] getPage(int page, int itemsPerPage) throws DAOException {

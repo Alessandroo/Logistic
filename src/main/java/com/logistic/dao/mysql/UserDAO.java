@@ -23,7 +23,6 @@ public class UserDAO extends MySQLDAO {
     protected UserDAO() throws InternalDAOException {
         super();
         nameTable = " `User` ";
-        logger = LoggerFactory.getLogger("com.logistic.dao.mysql.UserDAO");
     }
 
     public User[] getPage(int page, int itemsPerPage) throws InvalidDataDAOException, InternalDAOException {
@@ -84,7 +83,6 @@ public class UserDAO extends MySQLDAO {
         try {
             user = (User) newElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in create failed.", e);
             throw new InvalidDataDAOException("Cast Entity in create are failed", e);
         }
 
@@ -122,7 +120,6 @@ public class UserDAO extends MySQLDAO {
         try {
             user = (User) readElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in read failed.", e);
             throw new InvalidDataDAOException("Cast Entity in read failed.", e);
         }
 
@@ -199,7 +196,6 @@ public class UserDAO extends MySQLDAO {
         try {
             user = (User) updateElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in update failed.", e);
             throw new InvalidDataDAOException("Cast Entity in update failed.", e);
         }
 
@@ -247,7 +243,6 @@ public class UserDAO extends MySQLDAO {
                 throw new InvalidDataDAOException("Grant not found");
             }
         }catch (SQLException e){
-            logger.info("Read grant failed", e);
             throw new InternalDAOException("Read grant failed", e);
         }
         finally {

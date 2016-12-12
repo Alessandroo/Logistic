@@ -75,7 +75,6 @@ public class CargoDAO extends MySQLDAO {
         try {
             cargo = (Cargo) newElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in create failed.", e);
             throw new InvalidDataDAOException("Cast Entity in create are failed", e);
         }
 
@@ -108,7 +107,6 @@ public class CargoDAO extends MySQLDAO {
         try {
             cargo = (Cargo) readElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in read failed.", e);
             throw new InvalidDataDAOException("Cast Entity in read failed.", e);
         }
 
@@ -158,7 +156,6 @@ public class CargoDAO extends MySQLDAO {
         try {
             cargo = (Cargo) updateElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in update failed.", e);
             throw new InvalidDataDAOException("Cast Entity in update failed.", e);
         }
 
