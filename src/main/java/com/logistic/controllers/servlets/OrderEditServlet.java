@@ -52,14 +52,19 @@ public class OrderEditServlet extends AbstractHttpServlet {
             throws ServletException, IOException {                //сохранение
         try {
             User simpleUser = new User();
-            simpleUser.setLogin(req.getParameter("login"));
             ORMUser user = new ORMUser();
+
+            simpleUser.setLogin(req.getParameter("login"));
             user.setEntity(simpleUser);
             user.read();
 
             Cargo simpleCargo = new Cargo();
-            simpleCargo.setWeight(Float.parseFloat(req.getParameter("weight")));
             ORMCargo cargo = new ORMCargo();
+
+            try {
+
+            } catch (Exception e) {forwardToErrorPage("1",req,res);}
+            simpleCargo.setWeight(Float.parseFloat(req.getParameter("weight")));
             TypeCargo simpleTypeCargo = new TypeCargo();
             switch (req.getParameter("type")) {
                 case "Class1 - 16km/ch": {
@@ -92,10 +97,13 @@ public class OrderEditServlet extends AbstractHttpServlet {
             cargo.setEntity(simpleCargo);
 
             DeliveryClass simpleDeliveryClass = new DeliveryClass();
+
             simpleDeliveryClass.setName(req.getParameter("delivery-class"));
 
             Road simpleRoad = new Road();
             Point simplePointA = new Point();
+
+
             String temp =req.getParameter("point-a");
             String t[] = temp.split(" ");
             simplePointA.setY(Float.valueOf(t[0]));
@@ -103,6 +111,8 @@ public class OrderEditServlet extends AbstractHttpServlet {
             simpleRoad.setPointBegin(simplePointA);
 
             Point simplePointB = new Point();
+
+
             temp =req.getParameter("point-b");
             String tt[] = temp.split(" ");
             simplePointB.setY(Float.valueOf(tt[0]));
@@ -110,6 +120,8 @@ public class OrderEditServlet extends AbstractHttpServlet {
             simpleRoad.setPointEnd(simplePointB);
 
             ORMRoad road = new ORMRoad();
+
+
             road.setEntity(simpleRoad);
             try {
                 road.update();
@@ -122,7 +134,10 @@ public class OrderEditServlet extends AbstractHttpServlet {
             simpleOrder.setClient(user.getEntity());
             simpleOrder.setRoad(road.getEntity());
             simpleOrder.setDeliveryClass(simpleDeliveryClass);
-            simpleOrder.setId(Integer.getInteger(req.getParameter("id")));
+            try {
+                simpleOrder.setId(Integer.getInteger(req.getParameter("id")));
+            }catch (Exception e) {}
+
 
             ORMOrder order = new ORMOrder();
             order.setEntity(simpleOrder);
@@ -138,7 +153,7 @@ public class OrderEditServlet extends AbstractHttpServlet {
             RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
             editView.forward(req, res);
         }catch (Exception e) {
-            forwardToErrorPage(req,res);
+            forwardToErrorPage(e.getMessage(),req,res);
         }
     }
 

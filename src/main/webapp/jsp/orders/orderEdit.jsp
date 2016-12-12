@@ -48,10 +48,10 @@
 				<input style="width: 58%" type="datetime-local" name="time" id="start-time" required autocomplete="off" value="${order.road.time.timeBegin}"></br>
 
 				<div class="label"><label for="point-a">Point A:</label></div>
-				<input class="hidden" type="text" name="Apoint" id="point-a" required autocomplete="off" value="${order.road.pointBegin.y} ${order.road.pointBegin.x}"></br>
+				<input type="text" name="point-a" id="point-a" required autocomplete="off" value="${order.road.pointBegin.y} ${order.road.pointBegin.x}"></br>
 
-				<div class="label"><label for="point-b">Point B:</label></div>
-				<input class="hidden" type="text" name="Bpoint" id="point-b" required autocomplete="off" value="${order.road.pointEnd.y} ${order.road.pointEnd.x}"></br>
+				<div c	lass="label"><label for="point-b">Point B:</label></div>
+				<input type="text" name="point-b" id="point-b" required autocomplete="off" value="${order.road.pointEnd.y} ${order.road.pointEnd.x}"></br>
 
 				<input type="text" name="id" id="id" value="${order.id}" hidden=""></br>
 				<button type="submit">Send order</button>

@@ -38,20 +38,11 @@
                 <tbody>
 
 
-                <tr>
-                    <td class="unique" hidden="">44</td>
-                    <th >Name</th>
-                    <th>Point A</th>
-                    <th>Point B</th>
-                    <th>Time A</th>
-                    <th>Time B</th>
-                    <th>sum</th>
-                </tr>
                 <c:forEach items="${entityArray}" var="order">
                     <td class="unique" hidden="">${order.id}</td>
                     <td><c:out value="${order.client.login}" /></td>
-                    <td><c:out value="${order.road.pointBegin}" /></td>
-                    <td><c:out value="${order.road.pointEnd}" /></td>
+                    <td><c:out value="${order.road.pointBegin.y} ${order.road.pointBegin.x}" /></td>
+                    <td><c:out value="${order.road.pointEnd.y} ${order.road.pointEnd.x}" /></td>
                     <td><c:out value="${order.timeTable.timeBegin}" /></td>
                     <td><c:out value="${order.timeTable.timeEnd}" /></td>
                     <td><c:out value="${order.calculation}" /></td>
