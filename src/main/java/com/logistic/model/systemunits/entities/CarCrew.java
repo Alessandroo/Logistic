@@ -7,16 +7,11 @@ import java.util.ArrayList;
  */
 public class CarCrew extends Entity {
     private ArrayList<User> drivers;
-    private Route route;
+    private RouteArray route;
     private Truck truck;
-    private ArrayList<Order> orders;
 
-    public Route getRoute() {
+    public RouteArray getRoute() {
         return route;
-    }
-
-    public ArrayList<Order> getOrders() {
-        return orders;
     }
 
     public ArrayList<User> getDrivers() {
@@ -27,16 +22,12 @@ public class CarCrew extends Entity {
         return truck;
     }
 
-    public void setRoute(Route route) {
+    public void setRoute(RouteArray route) {
         this.route = route;
     }
 
     public void setDrivers(ArrayList<User> drivers) {
         this.drivers = drivers;
-    }
-
-    public void setOrders(ArrayList<Order> orders) {
-        this.orders = orders;
     }
 
     public void setTruck(Truck truck) {

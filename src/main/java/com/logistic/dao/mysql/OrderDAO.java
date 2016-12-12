@@ -104,7 +104,6 @@ public class OrderDAO extends MySQLDAO {
         try {
             order = (Order) newElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in create failed.", e);
             throw new InvalidDataDAOException("Cast Entity in create are failed", e);
         }
 
@@ -146,7 +145,6 @@ public class OrderDAO extends MySQLDAO {
         try {
             order = (Order) readElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in read failed.", e);
             throw new InvalidDataDAOException("Cast Entity in read failed.", e);
         }
 
@@ -221,7 +219,6 @@ public class OrderDAO extends MySQLDAO {
         try {
             order = (Order) updateElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in update failed.", e);
             throw new InvalidDataDAOException("Cast Entity in update are failed", e);
         }
 

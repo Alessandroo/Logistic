@@ -89,7 +89,6 @@ public class RouteDAO extends MySQLDAO {
         try {
             routeArray = (RouteArray) newElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in create failed.", e);
             throw new InvalidDataDAOException("Cast Entity in create are failed", e);
         }
 
@@ -136,7 +135,6 @@ public class RouteDAO extends MySQLDAO {
         try {
             routeArray = (RouteArray) readElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in read failed.", e);
             throw new InvalidDataDAOException("Cast Entity in read are failed", e);
         }
 
@@ -193,9 +191,7 @@ public class RouteDAO extends MySQLDAO {
         try {
             statement.executeUpdate(delete);
 
-            logger.trace("Delete was successful");
         } catch (SQLException e) {
-            logger.info("Delete failed", e);
             throw new InvalidDataDAOException("Delete failed", e);
         }
         finally {

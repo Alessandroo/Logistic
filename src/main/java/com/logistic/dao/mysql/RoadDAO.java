@@ -82,7 +82,6 @@ public class RoadDAO extends MySQLDAO {
         try {
             road = (Road) newElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in create failed.", e);
             throw new InvalidDataDAOException("Cast Entity in create are failed", e);
         }
 
@@ -118,7 +117,6 @@ public class RoadDAO extends MySQLDAO {
         try {
             road = (Road) readElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in read failed.", e);
             throw new InvalidDataDAOException("Cast Entity in read failed.", e);
         }
 
@@ -179,7 +177,6 @@ public class RoadDAO extends MySQLDAO {
         try {
             road = (Road) updateElement;
         }catch (ClassCastException e) {
-            logger.info("Cast Entity in update failed.", e);
             throw new InvalidDataDAOException("Cast Entity in update are failed", e);
         }
 
