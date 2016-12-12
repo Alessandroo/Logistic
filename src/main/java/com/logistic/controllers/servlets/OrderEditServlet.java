@@ -129,6 +129,7 @@ public class OrderEditServlet extends AbstractHttpServlet {
             String t[] = temp.split(" ");
             simplePointA.setY(Float.valueOf(t[0]));
             simplePointA.setX(Float.valueOf(t[1]));
+
             simpleRoad.setPointBegin(simplePointA);
 
             Point simplePointB = new Point();
@@ -141,7 +142,7 @@ public class OrderEditServlet extends AbstractHttpServlet {
             simpleRoad.setPointEnd(simplePointB);
 
             simpleRoad.setLongest(144);
-            Time current = new Time(5,1,20);
+            Time current = new Time(444);
             simpleRoad.setTime(current);
 
             ORMRoad road = new ORMRoad();
@@ -151,7 +152,12 @@ public class OrderEditServlet extends AbstractHttpServlet {
             try {
                 road.read();
             } catch (Exception e) {
-                road.create();
+                try{
+                    road.create();
+                } catch (Exception ee) {
+                    forwardToErrorPage(tt[0]+" "+tt[1],req,res);
+                }
+
             }     //вставка времени
 
             Order simpleOrder = new Order();
