@@ -37,12 +37,10 @@ public class OrderEditServlet extends AbstractHttpServlet {
                 addOrders(req,res);
                 break;
             } case "edit" : {
-                int temp = Integer.getInteger(req.getParameter("id"));
-                editOrders(req,res,temp);
+                editOrders(req,res);
                 break;
             } case "delete" : {
-                int temp = Integer.getInteger(req.getParameter("id"));
-                deleteOrders(req,res,temp);
+                deleteOrders(req,res);
                 break;
             }
         }
@@ -163,36 +161,62 @@ public class OrderEditServlet extends AbstractHttpServlet {
         editView.forward(req, res);
     }
 
-    public void editOrders(HttpServletRequest req, HttpServletResponse res, int id)
+    public void editOrders(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         try {
             Order simpleOrder  = new Order();
-            simpleOrder.setId(Integer.getInteger(req.getParameter("id")));
+            String temp = req.getParameter("id");
+            int id = 1;
+            try {
+                id = Integer.valueOf(temp);
+            } catch (Exception e) {
+                forwardToErrorPage("ddd",req,res);
+            }
+
+            try {
+                simpleOrder.setId(id);
+            } catch (Exception e) {
+                forwardToErrorPage("pp",req,res);
+            }
+
+
             ORMOrder order = new ORMOrder();
             order.setEntity(simpleOrder);
             order.read();
+            try {
+                req.setAttribute("order", order.getEntity());
+                RequestDispatcher editView = req.getRequestDispatcher(ORDER_EDIT_PAGE);
+                editView.forward(req, res);
+            } catch (Exception e) {
+                forwardToErrorPage("yy"+e.getMessage(),req,res);
+            }
 
-            req.setAttribute("order", order);
-            RequestDispatcher editView = req.getRequestDispatcher(ORDER_EDIT_PAGE);
-            editView.forward(req, res);
         }catch (Exception e) {
             forwardToErrorPage(req,res);
         }
 
 
     }
-    public void deleteOrders(HttpServletRequest req, HttpServletResponse res, int id)
+    public void deleteOrders(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         try {
             Order simpleOrder  = new Order();
-            simpleOrder.setId(Integer.getInteger(req.getParameter("id")));
-            ORMOrder order = new ORMOrder();
+            simpleOrder.setId(Integer.valueOf(req.getParameter("id")));
+            ORMOrder order = null;
+            order = new ORMOrder();
             order.setEntity(simpleOrder);
-            order.delete();
+            try {
+                order.delete();
+            }catch (Exception e) {
+                forwardToErrorPage("ooo",req,res);
+            }
+
+
+
             RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
             editView.forward(req, res);
         }catch (Exception e) {
-            forwardToErrorPage(req,res);
+            forwardToErrorPage("DDD"+req.getParameter("id"),req,res);
         }
     }
 

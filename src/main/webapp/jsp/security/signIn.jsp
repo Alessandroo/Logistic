@@ -42,7 +42,7 @@
                     <div class="modal-content">
 
                         <div class="modal-header">
-                            <h2 class="text-center">Sign in to CityCon</h2>
+                            <h2 class="text-center">Sign in to Logistic</h2>
                         </div>
 
                         <div class="modal-body">
@@ -75,7 +75,7 @@
                 <div class="modal-dialog" style="margin-bottom: 10px">
                     <div class="modal-content">
                         <div class="modal-footer">
-                            <h4 class="pull-left" align="left">New to CityCon?</h4>
+                            <h4 class="pull-left" align="left">New to Logistic?</h4>
                             <h4><a class="pull-right" href="/signup">Create an account</a></h4>
                         </div>
                     </div>

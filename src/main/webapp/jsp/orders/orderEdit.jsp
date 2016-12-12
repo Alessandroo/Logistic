@@ -45,7 +45,7 @@
 				</select><br>
 
 				<div class="label"><label for="start-time">Start time:</label></div>
-				<input style="width: 58%" type="datetime-local" name="time" id="start-time" required autocomplete="off" value="${order.road.time.timeBegin}"></br>
+				<input style="width: 58%" type="datetime-local" name="time" id="start-time" required autocomplete="off" value="${order.timeTable.timeBegin}"></br>
 
 				<div class="label"><label for="point-a">Point A:</label></div>
 				<input type="text" name="point-a" id="point-a" required autocomplete="off" value="${order.road.pointBegin.y} ${order.road.pointBegin.x}"></br>
