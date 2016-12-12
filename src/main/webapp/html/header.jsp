@@ -9,13 +9,7 @@
                 <a href='/logout' class='btn btn-header btn-default pull-right'>Logout</a>
             <%--</c:if>
             <c:if test="${showConnectionsBtn}">--%>
-                <a href="/connections" class="btn btn-header btn-default pull-right">Connections</a>
-            <%--</c:if>
-            <c:if test="${showRoutersBtn}">--%>
-                <a href="/routers" class="btn btn-header btn-default pull-right">Routers</a>
-            <%--</c:if>
-            <c:if test="${showCitiesBtn}">--%>
-                <a href="/cities" class="btn btn-header btn-default pull-right">Cities</a>
+                <a href="/orders" class="btn btn-header btn-default pull-right">Orders</a>
             <%--</c:if>
             <c:if test="${showUsersBtn}">--%>
                 <a href="/users" class="btn btn-header btn-default pull-right">Users</a>

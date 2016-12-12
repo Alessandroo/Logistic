@@ -120,6 +120,26 @@
 		<servlet-name>OrderEditServlet</servlet-name>
 		<url-pattern>/order</url-pattern>
 	</servlet-mapping>
+
+	<!-- CarCrews branch -->
+	<servlet>
+		<servlet-name>CarCrewListServlet</servlet-name>
+		<servlet-class>com.logistic.controllers.servlets.CarCrewListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CarCrewListServlet</servlet-name>
+		<url-pattern>/carCrews</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CarCrewEditServlet</servlet-name>
+		<servlet-class>com.logistic.controllers.servlets.CarCrewEditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CarCrewEditServlet</servlet-name>
+		<url-pattern>/carCrew</url-pattern>
+	</servlet-mapping>
+
 	<!-- Routers branch -->
 	<servlet>
 		<servlet-name>RouterListServlet</servlet-name>

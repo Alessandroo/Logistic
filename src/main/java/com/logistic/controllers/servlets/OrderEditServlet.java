@@ -15,6 +15,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 /**
@@ -60,39 +64,58 @@ public class OrderEditServlet extends AbstractHttpServlet {
             ORMCargo cargo = new ORMCargo();
 
             try {
+                simpleCargo.setWeight(Float.parseFloat(req.getParameter("weight")));
+                TypeCargo simpleTypeCargo = new TypeCargo();
+                switch (req.getParameter("type")) {
+                    case "Class1 - 16km/ch": {
+                        simpleTypeCargo.setMax_speed(16);
+                        simpleTypeCargo.setName("Class1");
+                        simpleTypeCargo.setId(1);
+                        break;
+                    }
+                    case "Class2 - 40km/ch": {
+                        simpleTypeCargo.setMax_speed(40);
+                        simpleTypeCargo.setName("Class2");
+                        simpleTypeCargo.setId(2);
+                        break;
+                    }
+                    case "Class3 - 64km/ch": {
+                        simpleTypeCargo.setMax_speed(64);
+                        simpleTypeCargo.setName("Class3");
+                        simpleTypeCargo.setId(3);
+                        break;
+                    }
+                    case "Class4 - 97km/ch": {
+                        simpleTypeCargo.setMax_speed(97);
+                        simpleTypeCargo.setName("Class4");
+                        simpleTypeCargo.setId(4);
+                        break;
+                    }
+                    case "Class5 - 127km/ch": {
+                        simpleTypeCargo.setMax_speed(127);
+                        simpleTypeCargo.setName("Class5");
+                        simpleTypeCargo.setId(5);
+                        break;
+                    }
+                }
+                simpleCargo.setTypeCargo(simpleTypeCargo);
+                simpleCargo.setName("cargo");
 
+                cargo.setEntity(simpleCargo);
+                try {
+                    cargo.read();
+                } catch (Exception e) {
+                    try {
+                        cargo.update();
+                    } catch (Exception ee) {
+                        try {
+                            cargo.create();
+                        } catch (Exception er) {}
+
+                    }
+                }
             } catch (Exception e) {forwardToErrorPage("1",req,res);}
-            simpleCargo.setWeight(Float.parseFloat(req.getParameter("weight")));
-            TypeCargo simpleTypeCargo = new TypeCargo();
-            switch (req.getParameter("type")) {
-                case "Class1 - 16km/ch": {
-                    simpleTypeCargo.setMax_speed(16);
-                    simpleTypeCargo.setName("Class1");
-                    break;
-                }
-                case "Class2 - 40km/ch": {
-                    simpleTypeCargo.setMax_speed(16);
-                    simpleTypeCargo.setName("Class1");
-                    break;
-                }
-                case "Class3 - 64km/ch": {
-                    simpleTypeCargo.setMax_speed(16);
-                    simpleTypeCargo.setName("Class1");
-                    break;
-                }
-                case "Class4 - 97km/ch": {
-                    simpleTypeCargo.setMax_speed(16);
-                    simpleTypeCargo.setName("Class1");
-                    break;
-                }
-                case "Class5 - 127km/ch": {
-                    simpleTypeCargo.setMax_speed(16);
-                    simpleTypeCargo.setName("Class1");
-                    break;
-                }
-            }
-            simpleCargo.setTypeCargo(simpleTypeCargo);
-            cargo.setEntity(simpleCargo);
+
 
             DeliveryClass simpleDeliveryClass = new DeliveryClass();
 
@@ -117,21 +140,26 @@ public class OrderEditServlet extends AbstractHttpServlet {
             simplePointB.setX(Float.valueOf(tt[1]));
             simpleRoad.setPointEnd(simplePointB);
 
+            simpleRoad.setLongest(144);
+            Time current = new Time(5,1,20);
+            simpleRoad.setTime(current);
+
             ORMRoad road = new ORMRoad();
 
 
             road.setEntity(simpleRoad);
             try {
-                road.update();
+                road.read();
             } catch (Exception e) {
                 road.create();
             }     //вставка времени
 
             Order simpleOrder = new Order();
-            simpleOrder.setCargo(simpleCargo);
+            simpleOrder.setCargo(cargo.getEntity());
             simpleOrder.setClient(user.getEntity());
             simpleOrder.setRoad(road.getEntity());
             simpleOrder.setDeliveryClass(simpleDeliveryClass);
+            simpleOrder.setCalculation(11);
             try {
                 simpleOrder.setId(Integer.getInteger(req.getParameter("id")));
             }catch (Exception e) {}
@@ -140,13 +168,18 @@ public class OrderEditServlet extends AbstractHttpServlet {
             ORMOrder order = new ORMOrder();
             order.setEntity(simpleOrder);
             try {
-                order.read();
+                order.update();
             } catch (Exception e) {
-                order.create();
+                try {
+                    order.create();
+                } catch (Exception ee) {
+                    forwardToErrorPage("save error",req,res);
+                }
+
             }
 
 
-            req.setAttribute("order", order);
+            req.setAttribute("order", order.getEntity());
 
             RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
             editView.forward(req, res);
