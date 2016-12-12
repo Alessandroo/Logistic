@@ -26,7 +26,7 @@ public class OrderDAO extends MySQLDAO {
 
         String search = "select O.id, calculation, id_cargo, id_client, id_road, id_timetable, " +
                 "(select `name` from Delivery_class D where D.id=O.id_delivery_class) as `delivery_class`, " +
-                "T.time_begin, T.time_end  from `Order` O, Timetable T  where T.id = O.id_timetable limit " +
+                "T.time_begin, T.time_end  from `Order` O left outer join Timetable T on O.id_timetable=T.id limit " +
                 (page-1)*itemsPerPage + "," + itemsPerPage;
 
         statement = getStatement();
@@ -40,6 +40,8 @@ public class OrderDAO extends MySQLDAO {
 
                     order.setId(resultSet.getInt("id"));
                     order.setCalculation(resultSet.getFloat("calculation"));
+
+                    System.out.println("Id " + order.getId());
 
                     DeliveryClass deliveryClass = new DeliveryClass();
                     deliveryClass.setName(resultSet.getString("delivery_class"));

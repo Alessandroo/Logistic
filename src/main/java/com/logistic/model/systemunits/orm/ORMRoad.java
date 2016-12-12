@@ -47,6 +47,11 @@ public class ORMRoad extends ORMEntity {
         return (Road[])staticDAO.getPage(page, itemsPerPage);
     }
 
+    public static int getCount() throws DAOException {
+        DAO staticDAO = daoFactory.getRoadDAO();
+        return staticDAO.count_element();
+    }
+
     public Road getEntity() {
         return road;
     }

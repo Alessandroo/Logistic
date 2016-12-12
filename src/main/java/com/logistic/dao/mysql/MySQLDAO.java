@@ -80,7 +80,6 @@ public abstract class MySQLDAO implements DAO {
                 }
             }
         } catch (SQLException e) {
-            logger.error("Close Connection failed", e);
             throw new InternalDAOException(e);
         }
     }
@@ -102,12 +101,9 @@ public abstract class MySQLDAO implements DAO {
 
             if (resultSet.first()) {
                 count = resultSet.getInt(1);
-
-                logger.trace("Get count elements");
             }
 
         } catch (SQLException e) {
-            logger.info("Get count elements failed", e);
             throw new InternalDAOException("Get count elements failed", e);
         }
         finally {
@@ -131,9 +127,7 @@ public abstract class MySQLDAO implements DAO {
         try {
             statement.executeUpdate(delete);
 
-            logger.trace("Delete was successful");
         } catch (SQLException e) {
-            logger.info("Delete failed", e);
             throw new InvalidDataDAOException("Delete failed", e);
         }
         finally {

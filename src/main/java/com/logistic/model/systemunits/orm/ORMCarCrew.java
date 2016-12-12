@@ -30,6 +30,10 @@ public class ORMCarCrew extends ORMEntity {
 
     }
 
+    public static int getCount() throws DAOException {
+        return 0;
+    }
+
     public static CarCrew[] getPage(int page, int itemsPerPage) throws DAOException {
         DAO staticDAO = daoFactory.getCarCrewDAO();
         return (CarCrew[])staticDAO.getPage(page, itemsPerPage);

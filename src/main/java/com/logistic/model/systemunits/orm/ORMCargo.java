@@ -43,6 +43,11 @@ public class ORMCargo extends ORMEntity {
         dao.delete(cargo);
     }
 
+    public static int getCount() throws DAOException {
+        DAO staticDAO = daoFactory.getCargoDAO();
+        return staticDAO.count_element();
+    }
+
     public static Cargo[] getPage(int page, int itemsPerPage) throws DAOException {
         DAO staticDAO = daoFactory.getCargoDAO();
         return (Cargo[])staticDAO.getPage(page, itemsPerPage);

@@ -35,6 +35,11 @@ public class ORMHistory extends ORMEntity {
         return (History[])staticDAO.getPage(page, itemsPerPage);
     }
 
+    public static int getCount() throws DAOException {
+        DAO staticDAO = daoFactory.getHistoryDAO();
+        return staticDAO.count_element();
+    }
+
     public History getEntity() {
         return history;
     }
