@@ -41,7 +41,7 @@ public class RouteDAO extends MySQLDAO {
             }
 
             for(int id_route:id_routes){
-                String search_route = "select * from Route WHERE id_route=" + id_route;
+                String search_route = "select * from Route WHERE id_route=" + id_route + " ORDER BY number_in_sequence";
                 resultSet = statement.executeQuery(search_route);
                 RouteArray routeArray = new RouteArray(id_route);
                 try{
@@ -56,7 +56,7 @@ public class RouteDAO extends MySQLDAO {
                         OrderDAO orderDAO = new OrderDAO();
                         orderDAO.read(order);
 
-                        routeArray.addRoute(resultSet.getInt("number_in_sequence"), road, order);
+                        routeArray.addRoute(road, order);
                     }
                     routes.add(routeArray);
                 }catch (SQLException e){
@@ -140,7 +140,7 @@ public class RouteDAO extends MySQLDAO {
             throw new InvalidDataDAOException("Cast Entity in read are failed", e);
         }
 
-        String get_idRouts = "select * from Route WHERE id_route=" + routeArray.getId();
+        String get_idRouts = "select * from Route WHERE id_route=" + routeArray.getId() + " ORDER BY number_in_sequence";
 
         statement = getStatement();
 
@@ -159,7 +159,7 @@ public class RouteDAO extends MySQLDAO {
                     OrderDAO orderDAO = new OrderDAO();
                     orderDAO.read(order);
 
-                    routeArray.addRoute(resultSet.getInt("number_in_sequence"), road, order);
+                    routeArray.addRoute(road, order);
                 }
             }catch (SQLException e){
                 throw new InvalidDataDAOException(e);
