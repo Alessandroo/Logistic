@@ -53,6 +53,7 @@ public class RoadDAO extends MySQLDAO {
                     point_end.setId(resultSet.getInt("id_end_point"));
                     point_end.setX(resultSet.getFloat("latitude_end"));
                     point_end.setY(resultSet.getFloat("longitude_end"));
+                    road.setPointEnd(point_end);
                     roads.add(road);
                 }
             }catch (SQLException e){
@@ -150,6 +151,7 @@ public class RoadDAO extends MySQLDAO {
                 point_end.setId(resultSet.getInt("id_end_point"));
                 point_end.setX(resultSet.getFloat("latitude_end"));
                 point_end.setY(resultSet.getFloat("longitude_end"));
+                road.setPointEnd(point_end);
             }
             else{
                 throw new InvalidDataDAOException(String.format("%s in read not found", nameTable));

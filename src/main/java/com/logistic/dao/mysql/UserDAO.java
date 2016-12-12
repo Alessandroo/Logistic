@@ -117,7 +117,7 @@ public class UserDAO extends MySQLDAO {
     public void read(Entity readElement) throws InternalDAOException, InvalidDataDAOException {
         User user = null;
 
-        String search = "select * from" + nameTable + "where `login`=?";
+        String search = "select * from" + nameTable + "where";
 
         try {
             user = (User) readElement;
@@ -126,23 +126,39 @@ public class UserDAO extends MySQLDAO {
             throw new InvalidDataDAOException("Cast Entity in read failed.", e);
         }
 
-        if (user.getPassword() != null){
-            search += " and `password`=?";
+        if (user.getId() == 0) {
+
+            if (user.getLogin() != null) {
+                search += " login=?";
+            }
+
+            if (user.getPassword() != null) {
+                search += " and `password`=?";
+            }
+
+            if(user.getLogin() == null){
+                throw new InvalidDataDAOException("For reading user incorrectly chosen field, " +
+                        "try Login with Password or only Login");
+            }
         }
 
-        if(user.getLogin() == null){
-            throw new InvalidDataDAOException("For reading user incorrectly chosen field, " +
-                    "try Login with Password or only Login");
+        else {
+            search += " id=?";
         }
 
         preparedStatement = getPrepareStatement(search);
 
         try {
-            preparedStatement.setString(1, user.getLogin());
+            if (user.getId() == 0){
+                preparedStatement.setString(1, user.getLogin());
 
-            if(user.getPassword() != null) {
-                preparedStatement.setString(2, user.getPassword());
+                if(user.getPassword() != null) {
+                    preparedStatement.setString(2, user.getPassword());
+                }
+            } else {
+                preparedStatement.setInt(1, user.getId());
             }
+
             resultSet =  preparedStatement.executeQuery();
             if(resultSet.first()) {
                 user.setId(resultSet.getInt("id"));

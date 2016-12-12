@@ -47,6 +47,11 @@ public class ORMOrder extends ORMEntity {
         return (Order[])staticDAO.getPage(page, itemsPerPage);
     }
 
+    public static int getCount() throws DAOException {
+        DAO staticDAO = daoFactory.getOrderDAO();
+        return staticDAO.count_element();
+    }
+
     public Order getEntity() {
         return order;
     }
