@@ -110,7 +110,7 @@ public class CarCrewDAO extends MySQLDAO {
      * @throws InvalidDataDAOException
      */
     public void read(Entity readElement) throws InternalDAOException, InvalidDataDAOException {
-        CarCrew carCrew = new CarCrew();
+        CarCrew carCrew = null;
 
         try {
             carCrew = (CarCrew) readElement;
@@ -123,7 +123,8 @@ public class CarCrewDAO extends MySQLDAO {
                     "try Id");
         }
 
-        String search = "select * from Car_crew WHERE id=" + carCrew.getId();
+        String search = "select C.id as id_crew, C.id_route, T.* " +
+                "from Car_crew C, Truck T where C.id_car=T.id and C.id=" + carCrew.getId();
 
         statement = getStatement();
 
@@ -267,8 +268,9 @@ public class CarCrewDAO extends MySQLDAO {
                 for(User driver:drivers){
                     String insert = "insert into Driver_Car_Crew (id_driver, id_car_crew) values (" +
                             driver.getId() + ", (SELECT id from Car_crew where id_car=" +
-                            "(select id from Truck where number=" + carCrew.getTruck().getNumber() + ") AND id_route=" +
+                            "(select id from Truck where number='" + carCrew.getTruck().getNumber() + "') AND id_route=" +
                             carCrew.getRoute().getId()+ "))";
+                    System.out.println(insert);
 
                     statement.executeUpdate(insert);
                 }
