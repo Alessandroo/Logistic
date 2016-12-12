@@ -9,7 +9,7 @@ public class RouteArray extends Entity {
     public RouteArray(int number){
         setId(number);
     }
-    private ArrayList<Route> routes;
+    private ArrayList<Route> routes = new ArrayList<>(200);
 
     public ArrayList<Route> getRoutes() {
         return routes;
@@ -19,11 +19,11 @@ public class RouteArray extends Entity {
         this.routes = routes;
     }
 
-    public void addRoute(int position, Road road, Order order){
+    public void addRoute(Road road, Order order){
         Route route = new Route();
         route.setId(getId());
         route.setRoad(road);
         route.setOrder(order);
-        routes.add(position, route);
+        routes.add(route);
     }
 }

@@ -157,8 +157,10 @@ public class OrderDAO extends MySQLDAO {
 
         String search = "select O.id, calculation, id_cargo, id_client, id_road, " +
                 "(select `name` from Delivery_class D where D.id=O.id_delivery_class) as `delivery_class`, " +
-                "T.time_begin, T.time_end,   from `Order` O, Timetable T  where T.id = O.id_timetable and O.id=" +
+                "T.time_begin, T.time_end from `Order` O left outer join Timetable T on O.id_timetable=T.id and O.id=" +
                 order.getId();
+
+        System.out.println(search);
 
         statement = getStatement();
 
@@ -223,15 +225,20 @@ public class OrderDAO extends MySQLDAO {
             throw new InvalidDataDAOException("Cast Entity in update are failed", e);
         }
 
-        String update_time = "UPDATE Timetable set time_begin="+ order.getTimeTable().getTimeBegin() +", time_end=" +
-                order.getTimeTable().getTimeEnd() + " WHERE id=" + order.getTimeTable().getId();
+        String insert_time = "INSERT INTO Timetable (time_begin, time_end) VALUES ('"+
+                order.getTimeTable().getTimeBegin() +"', '" +
+                order.getTimeTable().getTimeEnd() + "')";
+        System.out.println(insert_time);
 
-        String update_order = "UPDATE `Order` set calculation=" + order.getCalculation() + " WHERE id=" + order.getId();
+        String update_order = "UPDATE `Order` set calculation=" + order.getCalculation() +
+                ", id_timetable=(SELECT id from Timetable WHERE time_begin='"+ order.getTimeTable().getTimeBegin() +"' AND time_end='" +
+                order.getTimeTable().getTimeEnd() +"')" +
+                " WHERE id=" + order.getId();
 
         statement = getStatement();
 
         try {
-            statement.executeUpdate(update_time);
+            statement.executeUpdate(insert_time);
             statement.executeUpdate(update_order);
             RoadDAO roadDAO = new RoadDAO();
             Road road = order.getRoad();

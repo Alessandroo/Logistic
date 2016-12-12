@@ -92,7 +92,7 @@ public class RoadDAO extends MySQLDAO {
         String insert_road = "INSERT  INTO Road (id_begin_point, id_end_point) VALUES ((SELECT id FROM Point WHERE latitude=" +
                 road.getPointBegin().getX() +" AND longitude=" +road.getPointBegin().getY() +
                 "), (SELECT id FROM Point WHERE latitude="+ road.getPointEnd().getX() + " and longitude=" +
-                road.getPointEnd().getY() + "))";
+                road.getPointEnd().getY() + " LIMIT 1))";
 
         statement = getStatement();
 
@@ -204,8 +204,8 @@ public class RoadDAO extends MySQLDAO {
 
         String search = "SELECT id FROM Road WHERE id_begin_point = (SELECT id FROM Point WHERE latitude=" +
         road.getPointBegin().getX() +" AND longitude=" +road.getPointBegin().getY() +
-                ") and id_end_point=(SELECT id FROM Point WHERE latitude="+ road.getPointEnd().getX() + " and longitude=" +
-                road.getPointEnd().getY() + ")";
+                " LIMIT 1) and id_end_point=(SELECT id FROM Point WHERE latitude="+ road.getPointEnd().getX() + " and longitude=" +
+                road.getPointEnd().getY() + " LIMIT 1)";
 
 
         statement = getStatement();
