@@ -48,17 +48,19 @@ public class CarCrewEditServlet extends  AbstractHttpServlet {
             CarCrew simpleCarCrew = new CarCrew();
             User simpleUser1 = new User();
             ORMUser user = new ORMUser();
-
-            simpleUser1.setLogin(req.getParameter("driver1"));
+            User simpleUser2 = new User();
+            simpleUser1.setId(1);
+            simpleUser2.setId(2);
+           /* simpleUser1.setLogin(req.getParameter("driver1"));
             user.setEntity(simpleUser1);
             user.read();
             simpleUser1 = user.getEntity();
 
-            User simpleUser2 = new User();
+
             simpleUser2.setLogin(req.getParameter("driver2"));
             user.setEntity(simpleUser2);
             user.read();
-            simpleUser2 = user.getEntity();
+            simpleUser2 = user.getEntity();*/
 
             ArrayList<User> drivers = new ArrayList<User>();
             drivers.add(0,simpleUser1);
@@ -69,7 +71,7 @@ public class CarCrewEditServlet extends  AbstractHttpServlet {
             Truck simpleTruck = new Truck();
             simpleTruck.setNumber(req.getParameter("truck"));
             simpleCarCrew.setTruck(simpleTruck);
-            //forwardToErrorPage(simpleCarCrew.getTruck().getNumber(),req,res);
+            //forwardToErrorPage(simpleCarCrew.getTruck().getNumber());
 
             if (req.getParameter("id").length() > 0) {
                 try {
@@ -77,14 +79,14 @@ public class CarCrewEditServlet extends  AbstractHttpServlet {
                     carCrew.setEntity(simpleCarCrew);
                     carCrew.update();
                 } catch (Exception e) {
-                    forwardToErrorPage("update error",req,res);
+                    forwardToErrorPage(e.getMessage(),req,res);
                 }
             } else {
                 carCrew.setEntity(simpleCarCrew);
                 try {
                     carCrew.create();
                 } catch (Exception e) {
-                    forwardToErrorPage("create error",req,res);
+                    forwardToErrorPage(e.getMessage(),req,res);
                 }
 
             }

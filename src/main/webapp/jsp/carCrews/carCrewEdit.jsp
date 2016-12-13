@@ -30,6 +30,8 @@
 					</div>
 				</div>
 				<input type="hidden" name="id" id="id" value="${carCrew.id}"></br>
+				<input type="hidden" name="driver1id" id="driver1id" value="${carCrew.drivers[0].id}"></br>
+				<input type="hidden" name="driver2id" id="driver2id" value="${carCrew.drivers[1].id}"></br>
 				<select name="truck" id="truck" required autocomplete="off">
 					<option value="AI-5784">ISUZU ELF 3.5</option>
 					<option value="BN-1254">ISUZU ELF 5.2</option>
