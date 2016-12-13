@@ -47,7 +47,7 @@
 			<div class="col-sm-10">
 				<div class="panel panel-default">
 					<center class="panel-heading">
-						CityCon Users
+						Logistic Users
 					</center>
 					    <table class="selectable table table-striped table-bordered table-hover" style="table-layout: auto">
 				     		<thead>

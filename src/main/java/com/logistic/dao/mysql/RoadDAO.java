@@ -88,15 +88,22 @@ public class RoadDAO extends MySQLDAO {
         String insert_points = "INSERT INTO `Point` (`latitude`, `longitude`) VALUES ("+ road.getPointBegin().getX() +
                 "," + road.getPointBegin().getY() + "), (" + road.getPointEnd().getX() + "," + road.getPointEnd().getY() + ")";
 
+        System.out.println(insert_points);
         String insert_road = "INSERT  INTO Road (id_begin_point, id_end_point) VALUES ((SELECT id FROM Point WHERE latitude=" +
                 road.getPointBegin().getX() +" AND longitude=" +road.getPointBegin().getY() +
-                "), (SELECT id FROM Point WHERE latitude="+ road.getPointEnd().getX() + " and longitude=" +
-                road.getPointEnd().getY() + " LIMIT 1))";
+                " ), (SELECT id FROM Point WHERE latitude="+ road.getPointEnd().getX() + " and longitude=" +
+                road.getPointEnd().getY() + " ))";
+        System.out.println(insert_road);
 
         statement = getStatement();
 
         try {
-            statement.executeUpdate(insert_points);
+            try {
+                statement.executeUpdate(insert_points);
+            }
+            catch (SQLException e){
+
+            }
             statement.executeUpdate(insert_road);
         } catch (SQLException e){
             throw new DublicateKeyDAOException(String.format("Create %s failed", nameTable), e);

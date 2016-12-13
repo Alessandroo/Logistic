@@ -26,8 +26,8 @@ public class CarCrewEditServlet extends AbstractHttpServlet {
                          HttpServletResponse response) throws ServletException, IOException {
 
         User user = new User();
-        user.setLogin("Alex");
-        user.setPassword("Adminas");
+        user.setLogin("alex");
+        user.setPassword("123456");
         ORMUser client = new ORMUser();
         client.setEntity(user);
         try {
