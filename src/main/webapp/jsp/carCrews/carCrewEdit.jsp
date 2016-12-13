@@ -4,160 +4,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-	<%--<link  type="text/css" href="css/main.css" rel="stylesheet">--%>
-	<%--<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">--%>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
-	<script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
-	<script src="https://api-maps.yandex.ru/2.0/?load=package.standard&mode=debug&lang=ru-RU" type="text/javascript"></script>
+	<title>Edit</title>
 </head>
 
 <body>
 <div class="content-wrapper">
 	<%@ include file="/html/header.jsp" %>
-	<div class="form">
-
-		<form class="order-form" method="post" action="/order">
-
-			<div class="form-fields">
-
-				<div class="label"><label for="login">Name:</label></div>
-				<input type="text" name="login" id="login" value="${order.client.login}" required autocomplete="off"></br>
-
-				<div class="label"><label for="weight">Weight(kg):</label></div>
-				<input type="text" pattern= "[0-9]{1,5}" name="weight" id="weight" value="${order.cargo.weight}" required autocomplete="off"></br>
-
-				<div class="label"><label for="type">Type(max spead):</label></div>
-				<select name="type" id="type" required autocomplete="off">
-					<option>Class1 - 16km/ch</option>
-					<option>Class2 - 40km/ch</option>
-					<option>Class3 - 64km/ch</option>
-					<option>Class4 - 97km/ch</option>
-					<option>Class5 - 127km/ch</option>
+	<div class="before-footer">
+		<div class="panel panel-default">
+			<div class="panel-heading">Edit</div>
+			<form class="form-horizontal" role="form" method="post" action="/carCrew" role="form" id="form">
+				<div class="form-group">
+					<label for="driver1" class="col-xs-3 control-label">driver 1(login)</label>
+					<div class="col-xs-9">
+						<input class="form-control" placeholder="Name" id="driver1" name= "driver1" type="text" autofocus value="<c:out value="${carCrew.drivers[0].login}"/> ">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="driver2" class="col-xs-3 control-label">driver 2(login)</label>
+					<div class="col-xs-9">
+						<input class="form-control" placeholder="Name" id="driver2" name= "driver2" type="text" autofocus value="<c:out value="${carCrew.drivers[1].login}"/> ">
+					</div>
+				</div>
+				<input type="hidden" name="id" id="id" value="${carCrew.id}"></br>
+				<select name="truck" id="truck" required autocomplete="off">
+					<option value="ISUZU ELF 3.5">ISUZU ELF 3.5</option>
+					<option value="ISUZU ELF 5.2">ISUZU ELF 5.2</option>
+					<option value="ISUZU ELF 7.5">ISUZU ELF 7.5</option>
+					<option value="ISUZU ELF 9.5">ISUZU ELF 9.5</option>
+					<option value="ISUZU FORWARD 12">ISUZU FORWARD 12</option>
+					<option value="ISUZU FORWARD 18">ISUZU FORWARD 18</option>
+					<option value="ISUZU GIGA 6x4">ISUZU GIGA 6x4</option>
 				</select></br>
-
-				<div class="label"><label for="delivery-class">Delivery class:</label></div>
-				<select name="delivery" id="delivery-class" required autocomplete="off">
-					<option>Fast</option>
-					<option>Mid</option>
-					<option>Slow</option>
-				</select><br>
-
-				<div class="label"><label for="start-time">Start time:</label></div>
-				<input style="width: 58%" type="datetime-local" name="time" id="start-time" required autocomplete="off" value="${order.timeTable.timeBegin}"></br>
-
-				<div class="label"><label for="point-a">Point A:</label></div>
-				<input type="text" name="point-a" id="point-a" required autocomplete="off" value="${order.road.pointBegin.y} ${order.road.pointBegin.x}"></br>
-
-				<div c	lass="label"><label for="point-b">Point B:</label></div>
-				<input type="text" name="point-b" id="point-b" required autocomplete="off" value="${order.road.pointEnd.y} ${order.road.pointEnd.x}"></br>
-
-				<input type="text" name="id" id="id" value="${order.id}" hidden=""></br>
-				<button type="submit">Send order</button>
-
-			</div>
-
-			<div class="map">
-				<div id="mapID" style="width: 800px; height: 500px"></div>
-			</div>
-
-		</form>
-
+				<div class="form-group">
+					<div class="col-xs-9">
+						<input type="submit" class="btn btn-primary btn-lg btn-block" value="Yes">
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
-
-	<script type="text/javascript">
-		/* При успешной загрузке API выполняется
-		 соответствующая функция */
-		$(document).ready(function () {
-			ymaps.ready(function () {
-				myMap = new ymaps.Map("mapID", {
-					center: [57.5262, 38.3061], // Углич
-					zoom: 11,
-					controls: ['zoomControl']
-				}, {
-					balloonMaxWidth: 200,
-					searchControlProvider: 'yandex#search'
-				});
-				removeButton = new ymaps.control.Button("Сбросить");
-				myMap.controls.add(removeButton, {float: 'right'});
-				// Обработка события, возникающего при щелчке
-				// левой кнопкой мыши в любой точке карты.
-				// При возникновении такого события откроем балун.
-				var count = 0;
-				var placemarks = [];
-				removeButton.events.add('click', function () {
-					if (placemarks) {
-						if (placemarks.length == 1) {
-							myMap.geoObjects.remove(myPlacemark1);
-						} else {
-							myMap.geoObjects.remove(myPlacemark1);
-							myMap.geoObjects.remove(myPlacemark2);
-						}
-						count = 0;
-						$('#point-a').val('');
-						$('#point-b').val('');
-					}
-				});
-				var myPlacemark1, myPlacemark2;
-				myMap.events.add('click', function (e) {
-					if (!myMap.balloon.isOpen()) {
-						var coords = e.get('coords');
-						myMap.balloon.open(coords, {
-							contentBody:
-							'<p>Координаты: ' + [
-								coords[0].toPrecision(6),
-								coords[1].toPrecision(6)
-							].join(', ') + '</p>'
-						});
-						if (count == 0) {
-							$('#point-a').val(coords[0].toPrecision(6) + ' ' + coords[1].toPrecision(6));
-							count++;
-							myPlacemark1 = new ymaps.Placemark(coords, {
-								balloonContentBody: [
-									'<address>',
-									'<strong>',
-									coords[0].toPrecision(6),
-									coords[1].toPrecision(6),
-									'</strong>',
-									'</address>'
-								].join('')
-							}, {
-								preset: 'islands#redDotIcon'
-							});
-							myMap.geoObjects.add(myPlacemark1);
-							placemarks.push(myPlacemark2);
-						} else if (count == 1) {
-							$('#point-b').val(coords[0].toPrecision(6) + ' ' + coords[1].toPrecision(6));
-							count++;
-							myPlacemark2 = new ymaps.Placemark(coords, {
-								balloonContentBody: [
-									'<address>',
-									'<strong>',
-									coords[0].toPrecision(6),
-									coords[1].toPrecision(6),
-									'</strong>',
-									'</address>'
-								].join('')
-							}, {
-								preset: 'islands#redDotIcon'
-							});
-							myMap.geoObjects.add(myPlacemark2);
-							placemarks.push(myPlacemark2);
-						}
-					}
-					else {
-						myMap.balloon.close();
-					}
-				});
-				// Обработка события, возникающего при щелчке
-				// правой кнопки мыши в любой точке карты.
-				// При возникновении такого события покажем всплывающую подсказку
-				// в точке щелчка.
-			});
-		});
-	</script>
-
 	<%@ include file="/html/footer.html" %>
 </div>
 

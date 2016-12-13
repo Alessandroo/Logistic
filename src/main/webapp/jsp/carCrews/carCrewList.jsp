@@ -29,23 +29,26 @@
                 <tr>
                     <th>Driver 1</th>
                     <th>Driver 2</th>
-                    <th>Point begin</th>
-                    <th>Point end</th>
-                    <th>Truck number</th>
-                    <th>orders id</th>
+                    <th>Truck model</th>
                 </tr>
                 </thead>
                 <tbody>
 
 
-
+                <c:forEach items="${entityArray}" var="carCrew">
+                    <td class="unique" hidden="">${carCrew.id}</td>
+                    <td><c:out value="${carCrew.drivers[0].login}(${carCrew.drivers[0].name} ${carCrew.drivers[0].last_name})" /></td>
+                    <td><c:out value="${carCrew.drivers[1].login}(${carCrew.drivers[1].name} ${carCrew.drivers[1].last_name})" /></td>
+                    <td><c:out value="${carCrew.truck.model}" /></td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
             <div class="panel-footer">
                 <div class="row">
 
                     <div class="col-sm-4">
-                        <a href="/cardCrew?action=add">
+                        <a href="/carCrew?action=add">
                             <button class="btn btn-primary">Add</button>
                         </a>
                     </div>
