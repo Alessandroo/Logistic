@@ -55,7 +55,7 @@
 
                     <div class="col-sm-4">
                         <a class="editHref" href="#">
-                            <button class="btn btn-primary">Edit</button>
+                            <button class="btn btn-primary" >Add orders</button>
                         </a>
                     </div>
 
