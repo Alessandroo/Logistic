@@ -57,11 +57,6 @@ public abstract class MySQLDAO implements DAO {
 
     protected void close() throws InternalDAOException {
         try {
-            if(connection != null){
-                if(!connection.isClosed()){
-                    connection.close();
-                }
-            }
             if(statement != null) {
                 if (!statement.isClosed()) {
                     statement.close();
@@ -75,6 +70,11 @@ public abstract class MySQLDAO implements DAO {
             if(resultSet!= null) {
                 if (!resultSet.isClosed()) {
                     resultSet.close();
+                }
+            }
+            if(connection != null){
+                if(!connection.isClosed()){
+                    connection.close();
                 }
             }
         } catch (SQLException e) {
