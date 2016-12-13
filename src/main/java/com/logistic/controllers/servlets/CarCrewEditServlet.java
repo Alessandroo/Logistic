@@ -69,21 +69,25 @@ public class CarCrewEditServlet extends  AbstractHttpServlet {
             Truck simpleTruck = new Truck();
             simpleTruck.setNumber(req.getParameter("truck"));
             simpleCarCrew.setTruck(simpleTruck);
-            simpleCarCrew.setId(Integer.valueOf(req.getParameter("id")));
+            //forwardToErrorPage(simpleCarCrew.getTruck().getNumber(),req,res);
 
-            carCrew.setEntity(simpleCarCrew);
-
-            try {
-                carCrew.update();
-            }catch (Exception e) {
+            if (req.getParameter("id").length() > 0) {
+                try {
+                    simpleCarCrew.setId(Integer.valueOf(req.getParameter("id")));
+                    carCrew.setEntity(simpleCarCrew);
+                    carCrew.update();
+                } catch (Exception e) {
+                    forwardToErrorPage("update error",req,res);
+                }
+            } else {
+                carCrew.setEntity(simpleCarCrew);
                 try {
                     carCrew.create();
-                } catch (Exception ee) {
-                    forwardToErrorPage("invalid data or server error",req,res);
+                } catch (Exception e) {
+                    forwardToErrorPage("create error",req,res);
                 }
 
             }
-
 
         }catch (Exception e) {
             forwardToErrorPage(e.getMessage(),req,res);
