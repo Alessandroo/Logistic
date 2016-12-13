@@ -14,6 +14,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Time;
 import java.text.DateFormat;
@@ -53,6 +54,12 @@ public class OrderEditServlet extends AbstractHttpServlet {
                     RequestDispatcher editView = req.getRequestDispatcher(ORDER_EDIT_PAGE);
                     editView.forward(req, res);
                     break;
+                }
+                case "addOrder" : {
+                    addOrder(req,res);
+                }
+                case "setOrder" : {
+                    setOrder(req,res);
                 }
                 default: {
                     RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
@@ -181,6 +188,35 @@ public class OrderEditServlet extends AbstractHttpServlet {
 
 
     }
+    public void addOrder(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+
+        HttpSession session = req.getSession();
+        session.setAttribute("carCrewId", req.getParameter("carCrewId"));
+        ORMCarCrew carCrew = new ORMCarCrew();
+        CarCrew temp = new CarCrew();
+        temp.setId(Integer.valueOf(req.getParameter("carCrewId")));
+        carCrew.setEntity(temp);
+        try {
+            carCrew.read();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        temp = carCrew.getEntity();
+        session.setAttribute("carModel", temp.getTruck().getModel());
+        RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
+        editView.forward(req, res);
+    }
+
+    public void setOrder(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+
+        HttpSession session = req.getSession();
+        int CarCrewId = Integer.valueOf((String)session.getAttribute("carCrewId"));
+        RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
+        editView.forward(req, res);
+    }
+
     public void deleteOrders(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         try {

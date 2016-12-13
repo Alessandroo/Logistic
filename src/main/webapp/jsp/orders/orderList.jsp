@@ -68,6 +68,12 @@
                     </div>
 
                     <div class="col-sm-4">
+                        <a class="addOrderHref" href="##">
+                            <button class="btn btn-primary center-block">AddOrder(<%= session.getAttribute("carModel") %>)</button>
+                        </a>
+                    </div>
+
+                    <div class="col-sm-4">
                         <form action="/order" id="deleteForm" method="POST">
                             <input type="hidden" id="deleteId" name="id" value="-1">
                             <input type="hidden" name="type" value="delete">
