@@ -27,7 +27,8 @@
             <table class="selectable table table-striped" style="table-layout: auto">
                 <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Client</th>
+                    <th>Cargo</th>
                     <th>Point A</th>
                     <th>Point B</th>
                     <th>Time A</th>
@@ -39,10 +40,11 @@
 
 
                 <c:forEach items="${entityArray}" var="order">
-                    <td class="unique" hidden="">${order.id}</td>
+                    <td class="hidden idField">${order.id}</td>
                     <td><c:out value="${order.client.login}" /></td>
-                    <td><c:out value="${order.road.pointBegin.y} ${order.road.pointBegin.x}" /></td>
-                    <td><c:out value="${order.road.pointEnd.y} ${order.road.pointEnd.x}" /></td>
+                    <td><c:out value="${order.cargo.name}"></c:out></td>
+                    <td><c:out value="${order.road.pointBegin.x} ${order.road.pointBegin.y}" /></td>
+                    <td><c:out value="${order.road.pointEnd.x} ${order.road.pointEnd.y}" /></td>
                     <td><c:out value="${order.timeTable.timeBegin}" /></td>
                     <td><c:out value="${order.timeTable.timeEnd}" /></td>
                     <td><c:out value="${order.calculation}" /></td>
@@ -61,18 +63,17 @@
 
                     <div class="col-sm-4">
                         <a class="editHref" href="#">
-                            <button class="btn btn-primary">Edit</button>
+                            <button class="btn btn-primary center-block">Edit</button>
                         </a>
                     </div>
 
                     <div class="col-sm-4">
-                        <a class="deleteHref" href="##">
-                            <button class="btn btn-primary">Delete</button>
-                        </a>
+                        <form action="/order" id="deleteForm" method="POST">
+                            <input type="hidden" id="deleteId" name="id" value="-1">
+                            <input type="hidden" name="type" value="delete">
+                            <button type="button" class="btn btn-primary center-block deleteDialogBtn" data-toggle="modal" data-target=".deleteDialog">Delete</button>
+                        </form>
                     </div>
-
-
-
                 </div>
             </div>
         </div>

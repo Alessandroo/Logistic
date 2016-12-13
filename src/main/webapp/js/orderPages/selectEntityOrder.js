@@ -6,8 +6,6 @@ $(document).ready(function() {
  		}
  		selected = $(this);
  		document.selectedId = $(this).find("td.idField").text();
- 		document.selectedUniqueCity = $(this).find("td.uniqueCity").text();
- 		document.selectedUniqueCountry = $(this).find("td.uniqueCountry").text();
  		selected.addClass("info");
     });
 });
