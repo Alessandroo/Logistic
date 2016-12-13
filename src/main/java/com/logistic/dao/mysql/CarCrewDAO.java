@@ -93,15 +93,15 @@ public class CarCrewDAO extends MySQLDAO {
             preparedStatement.setString(1, carCrew.getTruck().getNumber());
 
             preparedStatement.executeUpdate();
-
-            DriverDAO driverDAO = new DriverDAO();
-            driverDAO.setDrivers(carCrew.getDrivers(), carCrew);
         } catch (SQLException e){
-            throw new DublicateKeyDAOException(String.format("Create %s failed", nameTable), e);
+
         }
         finally {
             close();
         }
+
+        DriverDAO driverDAO = new DriverDAO();
+        driverDAO.setDrivers(carCrew.getDrivers(), carCrew);
     }
 
     /**
@@ -268,8 +268,7 @@ public class CarCrewDAO extends MySQLDAO {
                 for(User driver:drivers){
                     String insert = "insert into Driver_Car_Crew (id_driver, id_car_crew) values (" +
                             driver.getId() + ", (SELECT id from Car_crew where id_car=" +
-                            "(select id from Truck where number='" + carCrew.getTruck().getNumber() + "') AND id_route=" +
-                            carCrew.getRoute().getId()+ "))";
+                            "(select id from Truck where number='" + carCrew.getTruck().getNumber() + "')))";
                     System.out.println(insert);
 
                     statement.executeUpdate(insert);

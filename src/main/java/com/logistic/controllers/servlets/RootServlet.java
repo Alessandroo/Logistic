@@ -20,8 +20,8 @@ import org.slf4j.LoggerFactory;
 public class RootServlet extends AbstractHttpServlet {
 
     private static final String INDEX_PAGE = "/index.jsp";
-    private static final String ADMIN_HOME = "/orders";
-    private static final String GUEST_OPERATOR_HOME = "/orders";
+    private static final String ADMIN_HOME = "/users";
+    private static final String NOT_ADMIN_HOME = "/orders";
 
     public RootServlet() {
         super();
@@ -41,7 +41,7 @@ public class RootServlet extends AbstractHttpServlet {
                 if (user.getGroup().equals("admin")) {
                     res.sendRedirect(ADMIN_HOME);
                 } else {
-                    res.sendRedirect(GUEST_OPERATOR_HOME);
+                    res.sendRedirect(NOT_ADMIN_HOME);
                 }
             } catch (NullPointerException | ClassCastException e) {
 

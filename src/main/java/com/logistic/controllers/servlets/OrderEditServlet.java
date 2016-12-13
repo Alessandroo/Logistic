@@ -30,98 +30,120 @@ import java.util.Calendar;
  */
 public class OrderEditServlet extends AbstractHttpServlet {
 
+    private String ORDER_ADD_PAGE = "/jsp/orders/orderAdd.jsp";
     private String ORDER_EDIT_PAGE = "/jsp/orders/orderEdit.jsp";
     private String ORDER_LIST_URL = "/orders";
     private String ORDER_EDIT_URL = "/order";
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        switch (req.getParameter("action")) {
-            case "add" : {
-                addOrders(req,res);
-                break;
-            } case "edit" : {
-                editOrders(req,res);
-                break;
-            } case "delete" : {
-                deleteOrders(req,res);
-                break;
+        try {
+            String action = req.getParameter("action");
+            if (action == null){
+                RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
+                editView.forward(req, res);
             }
+            switch (action) {
+                case "add": {
+                    RequestDispatcher editView = req.getRequestDispatcher(ORDER_ADD_PAGE);
+                    editView.forward(req, res);
+                    break;
+                }
+                case "edit": {
+                    RequestDispatcher editView = req.getRequestDispatcher(ORDER_EDIT_PAGE);
+                    editView.forward(req, res);
+                    break;
+                }
+                default: {
+                    RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
+                    editView.forward(req, res);
+                }
+            }
+        }catch (Exception e){
+            forwardToErrorPage(e.getMessage(), req, res);
         }
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
-            throws ServletException, IOException {                //сохранение
-        try {
-            Order order = new Order();
-            User simpleUser = new User();
-            ORMUser user = new ORMUser();
-
-            simpleUser.setId(Integer.parseInt(req.getParameter("client")));
-            user.setEntity(simpleUser);
-            user.read();
-            simpleUser = user.getEntity();
-            order.setClient(simpleUser);
-
-            Cargo simpleCargo = new Cargo();
-
-            simpleCargo.setWeight(Float.parseFloat(req.getParameter("weight")));
-            TypeCargo simpleTypeCargo = new TypeCargo();
-            simpleTypeCargo.setName(req.getParameter("type"));
-
-            simpleCargo.setTypeCargo(simpleTypeCargo);
-            simpleCargo.setName(req.getParameter("cargo"));
-
-            order.setCargo(simpleCargo);
-
-            DeliveryClass simpleDeliveryClass = new DeliveryClass();
-
-            simpleDeliveryClass.setName(req.getParameter("delivery-class"));
-            order.setDeliveryClass(simpleDeliveryClass);
-
-            Road simpleRoad = new Road();
-            Point simplePointA = new Point();
-
-
-            String temp =req.getParameter("point-a");
-            String t[] = temp.split(" ");
-            simplePointA.setX(Float.valueOf(t[0]));
-            simplePointA.setY(Float.valueOf(t[1]));
-
-            simpleRoad.setPointBegin(simplePointA);
-
-            Point simplePointB = new Point();
-
-
-            temp =req.getParameter("point-b");
-            String tt[] = temp.split(" ");
-            simplePointB.setX(Float.valueOf(tt[0]));
-            simplePointB.setY(Float.valueOf(tt[1]));
-            simpleRoad.setPointEnd(simplePointB);
-
-            order.setRoad(simpleRoad);
-
-            ORMOrder ormOrder = new ORMOrder();
-            ormOrder.setEntity(order);
-
-            try{
-                ormOrder.create();
-            }catch (DAOException e){
-                forwardToErrorPage(e.getMessage(),req,res);
+            throws ServletException, IOException {
+        String type = req.getParameter("type");
+        if (type == null) {
+            forwardToErrorPage("type parameter is null", req, res);
+        }
+        switch (type) {
+            case "edit": {
+                doPut(req, res);
+                return;
             }
+            case "delete": {
+                doDelete(req, res);
+                return;
+            }//сохранение
+            case "add": {
+                try {
+                    Order order = new Order();
+                    User simpleUser = new User();
 
-            RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
-            editView.forward(req, res);
-        }catch (Exception e) {
-            forwardToErrorPage(e.getMessage(),req,res);
+                    simpleUser.setId(Integer.parseInt(req.getParameter("client")));
+
+                    order.setClient(simpleUser);
+
+                    Cargo simpleCargo = new Cargo();
+
+                    simpleCargo.setWeight(Float.parseFloat(req.getParameter("weight")));
+                    TypeCargo simpleTypeCargo = new TypeCargo();
+                    simpleTypeCargo.setName(req.getParameter("type"));
+
+                    simpleCargo.setTypeCargo(simpleTypeCargo);
+                    simpleCargo.setName(req.getParameter("cargo"));
+
+                    order.setCargo(simpleCargo);
+
+                    DeliveryClass simpleDeliveryClass = new DeliveryClass();
+
+                    simpleDeliveryClass.setName(req.getParameter("delivery-class"));
+                    order.setDeliveryClass(simpleDeliveryClass);
+
+                    Road simpleRoad = new Road();
+                    Point simplePointA = new Point();
+
+
+                    String temp = req.getParameter("point-a");
+                    String t[] = temp.split(" ");
+                    simplePointA.setX(Float.valueOf(t[0]));
+                    simplePointA.setY(Float.valueOf(t[1]));
+
+                    simpleRoad.setPointBegin(simplePointA);
+
+                    Point simplePointB = new Point();
+
+
+                    temp = req.getParameter("point-b");
+                    String tt[] = temp.split(" ");
+                    simplePointB.setX(Float.valueOf(tt[0]));
+                    simplePointB.setY(Float.valueOf(tt[1]));
+                    simpleRoad.setPointEnd(simplePointB);
+
+                    order.setRoad(simpleRoad);
+
+                    ORMOrder ormOrder = new ORMOrder();
+                    ormOrder.setEntity(order);
+
+                    try {
+                        ormOrder.create();
+                    } catch (DAOException e) {
+                        forwardToErrorPage(e.getMessage(), req, res);
+                    }
+
+                    RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
+                    editView.forward(req, res);
+                } catch (Exception e) {
+                    forwardToErrorPage(e.getMessage(), req, res);
+                }
+            }
         }
     }
 
-    public void addOrders(HttpServletRequest req, HttpServletResponse res)
-            throws ServletException, IOException {
-        RequestDispatcher editView = req.getRequestDispatcher(ORDER_EDIT_PAGE);
-        editView.forward(req, res);
-    }
 
     public void editOrders(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
@@ -170,7 +192,7 @@ public class OrderEditServlet extends AbstractHttpServlet {
             try {
                 order.delete();
             }catch (Exception e) {
-                forwardToErrorPage("ooo",req,res);
+                forwardToErrorPage(e.getMessage(),req,res);
             }
 
 
