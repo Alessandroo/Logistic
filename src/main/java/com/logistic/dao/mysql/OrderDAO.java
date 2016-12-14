@@ -122,7 +122,7 @@ public class OrderDAO extends MySQLDAO {
             road.setLongest((float) distanceGeo.getDistance());
 
             float route = road.getLongest(); // [km]
-            float speed = (float) order.getDeliveryClass().getPrice_km(); // [km/h]
+            float speed = (float) order.getCargo().getTypeCargo().getMax_speed(); // [km/h]
             float time = (float) (1.1 *(route / speed));
             int hours = (int) time;
             float minutes_left = 60 * (time - hours);
