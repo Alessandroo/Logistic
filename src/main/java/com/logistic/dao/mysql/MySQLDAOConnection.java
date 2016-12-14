@@ -18,9 +18,9 @@ public class MySQLDAOConnection {
 
     private final String MYSQL_CONNECTOR_CLASS = "com.mysql.jdbc.Driver";
 
-    private static final String URL = "jdbc:mysql://23.99.115.175:3306/logistic";
+    private static final String URL = "jdbc:mysql://localhost:3306/logistic";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "nc_2groupDB";
+    private static final String PASSWORD = "root";
     /*private static final String URL = "jdbc:mysql://localhost:3306/myTestDB";
     private static final String USERNAME = "debian-sys-maint";
     private static final String PASSWORD = "2H3Oigcnv3wczD7y";*/
@@ -37,7 +37,7 @@ public class MySQLDAOConnection {
         try {
             Class.forName(MYSQL_CONNECTOR_CLASS);
             connectionPool = new ConnectionPool(URL, USERNAME, PASSWORD);
-            connectionPool.setCleaningInterval(10*1000);
+            connectionPool.setCleaningInterval(20*1000);
             logger.trace("ConnectionPool create");
         } catch (ClassNotFoundException e) {
             logger.error("Driver for database failed");

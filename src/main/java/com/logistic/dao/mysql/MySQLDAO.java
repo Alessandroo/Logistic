@@ -105,7 +105,7 @@ public abstract class MySQLDAO implements DAO {
             throw new InternalDAOException("Get count elements failed", e);
         }
         finally {
-            close();
+            this.close();
         }
 
         return count;
@@ -129,7 +129,7 @@ public abstract class MySQLDAO implements DAO {
             throw new InvalidDataDAOException("Delete failed", e);
         }
         finally {
-            close();
+            this.close();
         }
     }
 

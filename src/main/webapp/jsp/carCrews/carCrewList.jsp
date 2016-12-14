@@ -15,6 +15,43 @@
     <title>Car crew List</title>
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style type="text/css">
+        .col-xs-1-5,
+        .col-sm-1-5,
+        .col-md-1-5,
+        .col-lg-1-5 {
+            position: relative;
+            min-height: 1px;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        .col-xs-1-5 {
+            width: 20%;
+            float: left;
+        }
+
+        @media (min-width: 768px) {
+            .col-sm-1-5 {
+                width: 20%;
+                float: left;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .col-md-1-5 {
+                width: 20%;
+                float: left;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .col-lg-1-5 {
+                width: 20%;
+                float: left;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -47,25 +84,25 @@
             <div class="panel-footer">
                 <div class="row">
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-1-5">
                         <a href="/carCrew?action=add">
                             <button class="btn btn-primary">Add</button>
                         </a>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-1-5">
                         <a class="editHref" href="#">
                             <button class="btn btn-primary" >Add orders</button>
                         </a>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-1-5">
                         <a class="recomendHref" href="####">
                             <button class="btn btn-primary" >Show recomendations</button>
                         </a>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-1-5">
                         <a class="deleteHref" href="##">
                             <button class="btn btn-primary">Delete</button>
                         </a>
