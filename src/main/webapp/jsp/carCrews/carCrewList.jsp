@@ -76,7 +76,7 @@
                     <td class="unique" hidden="">${carCrew.id}</td>
                     <td><c:out value="${carCrew.drivers[0].login}(${carCrew.drivers[0].name} ${carCrew.drivers[0].last_name})" /></td>
                     <td><c:out value="${carCrew.drivers[1].login}(${carCrew.drivers[1].name} ${carCrew.drivers[1].last_name})" /></td>
-                    <td><c:out value="${carCrew.truck.model}" /></td>
+                    <td><c:out value="${carCrew.truck.model} +${carCrew.truck.model} " /></td>
                     </tr>
                 </c:forEach>
                 </tbody>
