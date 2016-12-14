@@ -20,7 +20,7 @@
 
 	<body>
 		<div class="content-wrapper">
-			<%@ include file="/include/header.jsp" %>
+			<%@ include file="/html/header.jsp" %>
 			<div class="alert alert-info selectAlert hide">
 				Please, choose one element from the list below.
 			</div>

@@ -11,10 +11,10 @@
             <c:if test="${showConnectionsBtn}">--%>
                 <a href="/orders" class="btn btn-header btn-default pull-right">Orders</a>
 				<a href="/carCrews" class="btn btn-header btn-default pull-right">CarCrews</a>
-            <%--</c:if>
-            <c:if test="${showUsersBtn}">--%>
+
+            <c:if test="${showUsersBtn}">
                 <a href="/users" class="btn btn-header btn-default pull-right">Users</a>
-			<%--</c:if>--%>
+			</c:if>
 		</div>
 	</div>
 </header>

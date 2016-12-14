@@ -43,7 +43,7 @@ public class SignUpServlet extends AbstractHttpServlet {
             user.setPassword(req.getParameter("password"));
             user.setEmail(req.getParameter("email"));
             user.setName(req.getParameter("name"));
-            user.setGroup("guest");
+            user.setGroup("client");
             java.sql.Date timeNow = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
             user.setCreateDate(timeNow);
 
