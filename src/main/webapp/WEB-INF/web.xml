@@ -82,26 +82,6 @@
     </servlet-mapping>
 
 
-
-	<!-- Cities branch -->
-	<servlet>
-		<servlet-name>CityListServlet</servlet-name>
-		<servlet-class>com.logistic.controllers.servlets.CityListServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CityListServlet</servlet-name>
-		<url-pattern>/cities</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>CityEditServlet</servlet-name>
-		<servlet-class>com.logistic.controllers.servlets.CityEditServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CityEditServlet</servlet-name>
-		<url-pattern>/city</url-pattern>
-	</servlet-mapping>
-
 	<!-- Orders branch -->
 	<servlet>
 		<servlet-name>OrderListServlet</servlet-name>
@@ -151,24 +131,6 @@
 	</servlet-mapping>
 
 
-	<!-- Connections branch -->
-	<servlet>
-		<servlet-name>ConnectionListServlet</servlet-name>
-		<servlet-class>com.logistic.controllers.servlets.ConnectionListServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ConnectionListServlet</servlet-name>
-		<url-pattern>/connections</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>ConnectionEditServlet</servlet-name>
-		<servlet-class>com.logistic.controllers.servlets.ConnectionEditServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ConnectionEditServlet</servlet-name>
-		<url-pattern>/connection</url-pattern>
-	</servlet-mapping>
 
 
     <!-- Filters -->

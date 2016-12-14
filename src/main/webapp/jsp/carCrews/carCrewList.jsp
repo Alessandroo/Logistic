@@ -60,8 +60,8 @@
                     </div>
 
                     <div class="col-sm-4">
-                        <a class="editHref" href="#">
-                            <button class="btn btn-primary" >Add orders</button>
+                        <a class="recomendHref" href="####">
+                            <button class="btn btn-primary" >Show recomendations</button>
                         </a>
                     </div>
 

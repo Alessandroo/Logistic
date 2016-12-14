@@ -25,10 +25,15 @@ public class CarCrewListServlet extends AbstractHttpServlet {
 
         try {
             ORMCarCrew card = new ORMCarCrew();
-            CarCrew List[] = card.getPage(1,5000);
-            //List[0].getRoute().getRoutes().size()
-            request.setAttribute("entityArray", List);
-            request.getRequestDispatcher(ORDER_LIST_PAGE).forward(request, response);
+            try {
+                CarCrew List[] = card.getPage(1,5000);
+                //List[0].getRoute().getRoutes().size()
+                request.setAttribute("entityArray", List);
+                request.getRequestDispatcher(ORDER_LIST_PAGE).forward(request, response);
+            } catch (Exception e) {
+                forwardToErrorPage("wtf"+e.getMessage(),request,response);
+            }
+
         } catch (Exception e) {
 
         }
