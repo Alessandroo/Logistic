@@ -33,9 +33,7 @@ import java.util.Calendar;
 public class OrderEditServlet extends AbstractHttpServlet {
 
     private String ORDER_ADD_PAGE = "/jsp/orders/orderAdd.jsp";
-    private String ORDER_EDIT_PAGE = "/jsp/orders/orderEdit.jsp";
     private String ORDER_LIST_URL = "/orders";
-    private String ORDER_EDIT_URL = "/order";
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
@@ -48,11 +46,6 @@ public class OrderEditServlet extends AbstractHttpServlet {
             switch (action) {
                 case "add": {
                     RequestDispatcher editView = req.getRequestDispatcher(ORDER_ADD_PAGE);
-                    editView.forward(req, res);
-                    break;
-                }
-                case "edit": {
-                    RequestDispatcher editView = req.getRequestDispatcher(ORDER_EDIT_PAGE);
                     editView.forward(req, res);
                     break;
                 }
@@ -79,10 +72,6 @@ public class OrderEditServlet extends AbstractHttpServlet {
             forwardToErrorPage("type parameter is null", req, res);
         }
         switch (type) {
-            case "edit": {
-                doPut(req, res);
-                return;
-            }
             case "delete": {
                 doDelete(req, res);
                 return;
@@ -152,43 +141,6 @@ public class OrderEditServlet extends AbstractHttpServlet {
         }
     }
 
-
-    public void editOrders(HttpServletRequest req, HttpServletResponse res)
-            throws ServletException, IOException {
-        try {
-            Order simpleOrder  = new Order();
-            String temp = req.getParameter("id");
-            int id = 1;
-            try {
-                id = Integer.valueOf(temp);
-            } catch (Exception e) {
-                forwardToErrorPage("ddd",req,res);
-            }
-
-            try {
-                simpleOrder.setId(id);
-            } catch (Exception e) {
-                forwardToErrorPage("pp",req,res);
-            }
-
-
-            ORMOrder order = new ORMOrder();
-            order.setEntity(simpleOrder);
-            order.read();
-            try {
-                req.setAttribute("order", order.getEntity());
-                RequestDispatcher editView = req.getRequestDispatcher(ORDER_EDIT_PAGE);
-                editView.forward(req, res);
-            } catch (Exception e) {
-                forwardToErrorPage("yy"+e.getMessage(),req,res);
-            }
-
-        }catch (Exception e) {
-            forwardToErrorPage(req,res);
-        }
-
-
-    }
     public void addOrder(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 

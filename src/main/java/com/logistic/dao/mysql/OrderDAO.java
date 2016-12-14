@@ -4,9 +4,13 @@ import com.logistic.dao.exceptions.DublicateKeyDAOException;
 import com.logistic.dao.exceptions.InternalDAOException;
 import com.logistic.dao.exceptions.InvalidDataDAOException;
 import com.logistic.model.systemunits.entities.*;
+import com.logistic.utils.DistanceGeo;
 
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Vojts on 11.12.2016.
@@ -24,10 +28,10 @@ public class OrderDAO extends MySQLDAO {
 
         ArrayList<Order> orders = new ArrayList();
 
-        String search = "select O.id, calculation, id_cargo, id_client, id_road, id_timetable, " +
+        String search = "select O.id, calculation, id_cargo, id_client, id_road, " +
                 "(select `name` from Delivery_class D where D.id=O.id_delivery_class) as `delivery_class`, " +
-                "T.time_begin, T.time_end  from `Order` O left outer join Timetable T on O.id_timetable=T.id limit " +
-                (page-1)*itemsPerPage + "," + itemsPerPage;
+                "(select `price_km` from Delivery_class D where D.id=O.id_delivery_class) AS price_km " +
+                "from `Order` O limit " + (page-1)*itemsPerPage + "," + itemsPerPage;
 
         statement = getStatement();
 
@@ -45,13 +49,8 @@ public class OrderDAO extends MySQLDAO {
 
                     DeliveryClass deliveryClass = new DeliveryClass();
                     deliveryClass.setName(resultSet.getString("delivery_class"));
+                    deliveryClass.setPrice_km(resultSet.getFloat("price_km"));
                     order.setDeliveryClass(deliveryClass);
-
-                    TimeTable timeTable = new TimeTable();
-                    timeTable.setId(resultSet.getInt("id_timetable"));
-                    timeTable.setTimeBegin(resultSet.getTimestamp("time_begin"));
-                    timeTable.setTimeEnd(resultSet.getTimestamp("time_end"));
-                    order.setTimeTable(timeTable);
 
                     Cargo cargo = new Cargo();
                     cargo.setId(resultSet.getInt("id_cargo"));
@@ -96,10 +95,11 @@ public class OrderDAO extends MySQLDAO {
     public void create(Entity newElement) throws DublicateKeyDAOException, InternalDAOException, InvalidDataDAOException {
         Order order = null;
 
-        String insert = "insert into " + nameTable + "(id_cargo, id_client, id_road, id_delivery_class) values " +
+        String insert = "insert into " + nameTable + "(id_cargo, id_client, id_road, id_delivery_class, calculation) " +
+                "values " +
                 "((select id from Cargo where `name`=? and weight=? and " +
                 "id_type=(select id from Type_cargo where class = ?)), " +
-                "?, ?, (select id from Delivery_class where `name` = ?))";
+                "?, ?, (select id from Delivery_class where `name` = ?), ?)";
 
         try {
             order = (Order) newElement;
@@ -115,6 +115,28 @@ public class OrderDAO extends MySQLDAO {
             cargoDAO.create(cargo);
 
             Road road = order.getRoad();
+            DistanceGeo distanceGeo = new DistanceGeo();
+            distanceGeo.setBeginPoint(road.getPointBegin());
+            distanceGeo.setEndPoint(road.getPointEnd());
+
+            road.setLongest((float) distanceGeo.getDistance());
+
+            float route = road.getLongest(); // [km]
+            float speed = (float) order.getDeliveryClass().getPrice_km(); // [km/h]
+            float time = (float) (1.1 *(route / speed));
+            int hours = (int) time;
+            float minutes_left = 60 * (time - hours);
+            int minutes = (int) (60 * (time - hours));
+            int seconds = (int) (60 * (minutes_left-minutes));
+            Calendar calendar = new GregorianCalendar();
+            calendar.set(Calendar.HOUR, hours);
+            calendar.set(Calendar.MINUTE, minutes);
+            calendar.set(Calendar.SECOND, seconds);
+
+            Time time1 = new Time(calendar.getTime().getTime());
+
+            road.setTime(time1);
+
             RoadDAO roadDAO = new RoadDAO();
             roadDAO.create(road);
 
@@ -124,6 +146,8 @@ public class OrderDAO extends MySQLDAO {
             preparedStatement.setInt(4, order.getClient().getId());
             preparedStatement.setInt(5, roadDAO.getRoadId(road));
             preparedStatement.setString(6, order.getDeliveryClass().getName());
+            preparedStatement.setFloat(7, (float) (order.getRoad().getLongest() *
+                    order.getDeliveryClass().getPrice_km()));
 
             preparedStatement.executeUpdate();
         } catch (SQLException e){
@@ -155,7 +179,8 @@ public class OrderDAO extends MySQLDAO {
 
         String search = "select O.id, calculation, id_cargo, id_client, id_road, " +
                 "(select `name` from Delivery_class D where D.id=O.id_delivery_class) as `delivery_class`, " +
-                "T.time_begin, T.time_end from `Order` O left outer join Timetable T on O.id_timetable=T.id and O.id=" +
+                "(select `price_km` from Delivery_class D where D.id=O.id_delivery_class) " +
+                "from `Order` O WHERE O.id=" +
                 order.getId();
 
         System.out.println(search);
@@ -170,12 +195,8 @@ public class OrderDAO extends MySQLDAO {
 
                 DeliveryClass deliveryClass = new DeliveryClass();
                 deliveryClass.setName(resultSet.getString("delivery_class"));
+                deliveryClass.setPrice_km(resultSet.getFloat("price_km"));
                 order.setDeliveryClass(deliveryClass);
-
-                TimeTable timeTable = new TimeTable();
-                timeTable.setTimeBegin(resultSet.getTimestamp("time_begin"));
-                timeTable.setTimeEnd(resultSet.getTimestamp("time_end"));
-                order.setTimeTable(timeTable);
 
                 Cargo cargo = new Cargo();
                 cargo.setId(resultSet.getInt("id_cargo"));
@@ -214,39 +235,6 @@ public class OrderDAO extends MySQLDAO {
      * @throws InternalDAOException
      */
     public void update(Entity updateElement) throws DublicateKeyDAOException, InvalidDataDAOException, InternalDAOException {
-        Order order = null;
-
-        try {
-            order = (Order) updateElement;
-        }catch (ClassCastException e) {
-            throw new InvalidDataDAOException("Cast Entity in update are failed", e);
-        }
-
-        String insert_time = "INSERT INTO Timetable (time_begin, time_end) VALUES ('"+
-                order.getTimeTable().getTimeBegin() +"', '" +
-                order.getTimeTable().getTimeEnd() + "')";
-        System.out.println(insert_time);
-
-        String update_order = "UPDATE `Order` set calculation=" + order.getCalculation() +
-                ", id_timetable=(SELECT id from Timetable WHERE time_begin='"+ order.getTimeTable().getTimeBegin() +"' AND time_end='" +
-                order.getTimeTable().getTimeEnd() +"')" +
-                " WHERE id=" + order.getId();
-
-        statement = getStatement();
-
-        try {
-            statement.executeUpdate(insert_time);
-            statement.executeUpdate(update_order);
-            RoadDAO roadDAO = new RoadDAO();
-            Road road = order.getRoad();
-            road.setId(roadDAO.getRoadId(road));
-            roadDAO.update(road);
-
-        } catch (SQLException e) {
-            throw new DublicateKeyDAOException((String.format("Update %s failed", nameTable)), e);
-        }
-        finally {
-            close();
-        }
+        return;
     }
 }

@@ -8,7 +8,6 @@ public class Order extends Entity{
     private DeliveryClass deliveryClass;
     private Cargo cargo;
     private Road road;
-    private TimeTable timeTable;
     private float calculation;
 
     public float getCalculation() {
@@ -21,10 +20,6 @@ public class Order extends Entity{
 
     public DeliveryClass getDeliveryClass() {
         return deliveryClass;
-    }
-
-    public TimeTable getTimeTable() {
-        return timeTable;
     }
 
     public User getClient() {
@@ -49,10 +44,6 @@ public class Order extends Entity{
 
     public void setDeliveryClass(DeliveryClass deliveryClass) {
         this.deliveryClass = deliveryClass;
-    }
-
-    public void setTimeTable(TimeTable timeTable) {
-        this.timeTable = timeTable;
     }
 
     public void setRoad(Road road) {

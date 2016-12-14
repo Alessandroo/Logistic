@@ -31,8 +31,8 @@
                     <th>Cargo</th>
                     <th>Point A</th>
                     <th>Point B</th>
-                    <th>Time A</th>
-                    <th>Time B</th>
+                    <th>Long</th>
+                    <th>Time</th>
                     <th>sum</th>
                 </tr>
                 </thead>
@@ -45,8 +45,8 @@
                     <td><c:out value="${order.cargo.name}"></c:out></td>
                     <td><c:out value="${order.road.pointBegin.x} ${order.road.pointBegin.y}" /></td>
                     <td><c:out value="${order.road.pointEnd.x} ${order.road.pointEnd.y}" /></td>
-                    <td><c:out value="${order.timeTable.timeBegin}" /></td>
-                    <td><c:out value="${order.timeTable.timeEnd}" /></td>
+                    <td><c:out value="${order.road.longest}" /></td>
+                    <td><c:out value="${order.road.time}" /></td>
                     <td><c:out value="${order.calculation}" /></td>
                     </tr>
                 </c:forEach>
@@ -58,12 +58,6 @@
                     <div class="col-sm-4">
                         <a href="/order?action=add">
                             <button class="btn btn-primary">Add</button>
-                        </a>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <a class="editHref" href="#">
-                            <button class="btn btn-primary center-block">Edit</button>
                         </a>
                     </div>
 
