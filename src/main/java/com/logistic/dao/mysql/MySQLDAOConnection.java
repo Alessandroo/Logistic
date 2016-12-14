@@ -18,12 +18,12 @@ public class MySQLDAOConnection {
 
     private final String MYSQL_CONNECTOR_CLASS = "com.mysql.jdbc.Driver";
 
-    /*private static final String URL = "jdbc:mysql://localhost:3306/logistic";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";*/
     private static final String URL = "jdbc:mysql://localhost:3306/logistic";
-    private static final String USERNAME = "debian-sys-maintgit";
-    private static final String PASSWORD = "";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "root";
+//    private static final String URL = "jdbc:mysql://localhost:3306/logistic";
+//    private static final String USERNAME = "debian-sys-maintgit";
+//    private static final String PASSWORD = "";
 
 
 

@@ -42,7 +42,7 @@ public class RecomendationListServlet extends AbstractHttpServlet {
                 forwardToErrorPage("vot vot",request,response);
             }
             //findMinPath(routesList);
-            request.setAttribute("entityArray", findMinPath(routesList));
+            request.setAttribute("entityArray",routesList);
             try {
                 request.getRequestDispatcher(LIST_PAGE).forward(request, response);
             } catch (Exception e) {
