@@ -1,4 +1,4 @@
-﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Car crew List</title>
+    <title>Recomended path</title>
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
@@ -23,23 +23,25 @@
     <div class="before-footer">
 
         <div class="panel panel-default">
-            <div class="panel-heading">Car crew List</div>
+            <div class="panel-heading">Recomended path</div>
             <table class="selectable table table-striped" style="table-layout: auto">
                 <thead>
                 <tr>
-                    <th>Driver 1</th>
-                    <th>Driver 2</th>
-                    <th>Truck model</th>
+                    <th>Client</th>
+                    <th>Cargo</th>
+                    <th>Point A</th>
+                    <th>Point B</th>
                 </tr>
                 </thead>
                 <tbody>
 
 
-                <c:forEach items="${entityArray}" var="carCrew">
-                    <td class="unique" hidden="">${carCrew.id}</td>
-                    <td><c:out value="${carCrew.drivers[0].login}(${carCrew.drivers[0].name} ${carCrew.drivers[0].last_name})" /></td>
-                    <td><c:out value="${carCrew.drivers[1].login}(${carCrew.drivers[1].name} ${carCrew.drivers[1].last_name})" /></td>
-                    <td><c:out value="${carCrew.truck.model}" /></td>
+                <c:forEach items="${entityArray}" var="route">
+                    <td class="unique" hidden="">${route.id}</td>
+                    <td><c:out value="${route.order.client.login})" /></td>
+                    <td><c:out value="${route.cargo.name})" /></td>
+                    <td><c:out value="${carCrew.road.pointBegin.y} ${carCrew.road.pointBegin.x}" /></td>
+                    <td><c:out value="${carCrew.road.pointEnd.y} ${carCrew.road.pointEnd.x}" /></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -60,8 +62,8 @@
                     </div>
 
                     <div class="col-sm-4">
-                        <a class="editHref" href="#">
-                            <button class="btn btn-primary" >Add orders</button>
+                        <a class="recomendHref" href="###">
+                            <button class="btn btn-primary" >Show recomended path</button>
                         </a>
                     </div>
 

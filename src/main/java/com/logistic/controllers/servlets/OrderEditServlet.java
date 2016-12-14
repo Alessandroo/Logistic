@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -212,8 +213,51 @@ public class OrderEditServlet extends AbstractHttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = req.getSession();
-        int CarCrewId = Integer.valueOf((String)session.getAttribute("carCrewId"));
-        RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
+        int carCrewId = Integer.valueOf((String)session.getAttribute("carCrewId"));
+        ORMCarCrew carCrew = new ORMCarCrew();
+        CarCrew simpleCarCrew = new CarCrew();
+        simpleCarCrew.setId(carCrewId);
+        carCrew.setEntity(simpleCarCrew);
+        try {
+            carCrew.read();             //считали экипаж
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        Order simpleOrder = new Order();
+        simpleOrder.setId(Integer.valueOf(req.getParameter("id")));
+        ORMOrder order = new ORMOrder();
+        order.setEntity(simpleOrder);
+        try {
+            order.read();               //считали ордер
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        simpleOrder = order.getEntity();
+
+        Route simpleRoute = new Route();
+        ORMRoute route = new ORMRoute();
+
+        simpleRoute.setOrder(simpleOrder);      //запихали в путь ордер
+        simpleRoute.setRoad(simpleOrder.getRoad());
+
+
+        simpleCarCrew = carCrew.getEntity();
+        ArrayList<Route> routes = simpleCarCrew.getRoute().getRoutes();
+        routes.add(simpleRoute);
+        RouteArray simpleRouteArray = new RouteArray(1);
+        simpleRouteArray.setRoutes(routes);  //запихали в массив путей пути
+
+
+        simpleCarCrew.setRoute(simpleRouteArray);
+        carCrew.setEntity(simpleCarCrew);
+        try {
+            carCrew.update();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        RequestDispatcher editView = req.getRequestDispatcher("/jsp/orders/orderSave.jsp");
         editView.forward(req, res);
     }
 

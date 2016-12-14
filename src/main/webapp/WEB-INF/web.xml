@@ -140,24 +140,16 @@
 		<url-pattern>/carCrew</url-pattern>
 	</servlet-mapping>
 
-	<!-- Routers branch -->
+	<!-- Recomendation branch -->
 	<servlet>
-		<servlet-name>RouterListServlet</servlet-name>
-		<servlet-class>com.logistic.controllers.servlets.RouterListServlet</servlet-class>
+		<servlet-name>RecomendationListServlet</servlet-name>
+		<servlet-class>com.logistic.controllers.servlets.RecomendationListServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>RouterListServlet</servlet-name>
-		<url-pattern>/routers</url-pattern>
+		<servlet-name>RecomendationListServlet</servlet-name>
+		<url-pattern>/recomendations</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>RouterEditServlet</servlet-name>
-		<servlet-class>com.logistic.controllers.servlets.RouterEditServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>RouterEditServlet</servlet-name>
-		<url-pattern>/router</url-pattern>
-	</servlet-mapping>
 
 	<!-- Connections branch -->
 	<servlet>

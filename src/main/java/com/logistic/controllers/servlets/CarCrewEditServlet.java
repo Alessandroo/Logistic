@@ -20,7 +20,7 @@ public class CarCrewEditServlet extends  AbstractHttpServlet {
 
     private String CARD_CREW_EDIT_PAGE = "/jsp/carCrews/carCrewEdit.jsp";
     private String CARD_CREW_LIST_URL = "/carCrews";
-    private String CARD_CREW_EDIT_URL = "/carCrew";
+    private String RECOMENDATION_PAGE= "/recomendations";
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
@@ -33,6 +33,9 @@ public class CarCrewEditServlet extends  AbstractHttpServlet {
                 break;
             } case "delete" : {
                 delete(req,res);
+                break;
+            } case "recomendation" : {
+                recomend(req,res);
                 break;
             } default: {
                 add(req,res);
@@ -97,6 +100,12 @@ public class CarCrewEditServlet extends  AbstractHttpServlet {
     public void add(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         RequestDispatcher editView = req.getRequestDispatcher(CARD_CREW_EDIT_PAGE);
+        editView.forward(req, res);
+    }
+
+    public void recomend(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        RequestDispatcher editView = req.getRequestDispatcher(RECOMENDATION_PAGE);
         editView.forward(req, res);
     }
 
