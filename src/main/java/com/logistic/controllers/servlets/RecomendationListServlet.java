@@ -1,6 +1,7 @@
 package com.logistic.controllers.servlets;
 
 import com.logistic.model.systemunits.entities.CarCrew;
+import com.logistic.model.systemunits.entities.GraphPoint;
 import com.logistic.model.systemunits.entities.Order;
 import com.logistic.model.systemunits.entities.Route;
 import com.logistic.model.systemunits.orm.ORMCarCrew;
@@ -27,11 +28,20 @@ public class RecomendationListServlet extends AbstractHttpServlet {
             ORMCarCrew carCrew = new ORMCarCrew();
             simpleCrew.setId(id);
             carCrew.setEntity(simpleCrew);
-            carCrew.read();
-            ArrayList<Route> routes = carCrew.getEntity().getRoute().getRoutes();
+            try {
+                carCrew.read();
+            } catch (Exception e) {
+                forwardToErrorPage("vot",request,response);
+            }
+            ArrayList<Route> routes = null;
             Route routesList[] = null;
-            routes.toArray(routesList);
-            routesList[0].getOrder().getRoad().getPointBegin().getY();
+            routes = carCrew.getEntity().getRoute().getRoutes();
+            try {
+                routesList = routes.toArray( new Route[routes.size()] );
+            } catch (Exception e) {
+                forwardToErrorPage("vot vot",request,response);
+            }//routesList[0].getRoad().getPointBegin()
+            //findMinPath(routesList);
             request.setAttribute("entityArray", routesList);
             try {
                 request.getRequestDispatcher(LIST_PAGE).forward(request, response);
@@ -42,6 +52,28 @@ public class RecomendationListServlet extends AbstractHttpServlet {
         } catch (Exception e) {
             forwardToErrorPage("recomendation servlet error"+e.getMessage(),request,response);
         }
+
+    }
+
+    void findMinPath(Route[] mas) {
+        GraphPoint points[] = new GraphPoint[mas.length];
+        int n = mas.length;
+        for  (int i = 0; i < n; i++) {
+            points[i].x_first = mas[i].getOrder().getRoad().getPointBegin().getX();
+            points[i].y_first = mas[i].getOrder().getRoad().getPointBegin().getY();
+            points[i].x_last = mas[i].getOrder().getRoad().getPointEnd().getX();
+            points[i].y_last = mas[i].getOrder().getRoad().getPointEnd().getY();
+            points[i].numberWas = i;
+        }
+
+        int temp[] = new int[n];
+        int best[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            temp[i]=i;
+            best[i]=i;
+        }
+
+
 
     }
 

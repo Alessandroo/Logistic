@@ -38,45 +38,14 @@
 
                 <c:forEach items="${entityArray}" var="route">
                     <td class="unique" hidden="">${route.id}</td>
-                    <td><c:out value="${route.order.client.login})" /></td>
-                    <td><c:out value="${route.cargo.name})" /></td>
-                    <td><c:out value="${carCrew.road.pointBegin.y} ${carCrew.road.pointBegin.x}" /></td>
-                    <td><c:out value="${carCrew.road.pointEnd.y} ${carCrew.road.pointEnd.x}" /></td>
+                    <td><c:out value="${route.order.client.login}" /></td>
+                    <td><c:out value="${route.order.cargo.name}" /></td>
+                    <td><c:out value="${route.road.pointBegin.y} ${route.road.pointBegin.x}" /></td>
+                    <td><c:out value="${route.road.pointEnd.y} ${route.road.pointEnd.x}" /></td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
-            <div class="panel-footer">
-                <div class="row">
-
-                    <div class="col-sm-4">
-                        <a href="/carCrew?action=add">
-                            <button class="btn btn-primary">Add</button>
-                        </a>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <a class="editHref" href="#">
-                            <button class="btn btn-primary" >Add orders</button>
-                        </a>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <a class="recomendHref" href="###">
-                            <button class="btn btn-primary" >Show recomended path</button>
-                        </a>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <a class="deleteHref" href="##">
-                            <button class="btn btn-primary">Delete</button>
-                        </a>
-                    </div>
-
-
-
-                </div>
-            </div>
         </div>
 
 
