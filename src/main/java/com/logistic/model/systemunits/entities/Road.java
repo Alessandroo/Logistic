@@ -5,7 +5,7 @@ import java.sql.Time;
 /**
  * Created by Vojts on 10.12.2016.
  */
-public class        Road extends Entity {
+public class Road extends Entity {
     private float longest;
     private Point pointBegin;
     private Point pointEnd;

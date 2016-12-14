@@ -25,7 +25,7 @@ public class OrderListServlet  extends AbstractHttpServlet {
             request.setAttribute("entityArray", OrderList);
             request.getRequestDispatcher(ORDER_LIST_PAGE).forward(request, response);
         } catch (Exception e) {
-
+            forwardToErrorPage(e.getMessage(), request, response);
         }
 
     }
