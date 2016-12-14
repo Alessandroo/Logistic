@@ -67,7 +67,7 @@ public class OrderEditServlet extends AbstractHttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        String type = req.getParameter("type");
+        String type = req.getParameter("action");
         if (type == null) {
             forwardToErrorPage("type parameter is null", req, res);
         }
@@ -137,7 +137,11 @@ public class OrderEditServlet extends AbstractHttpServlet {
                 } catch (Exception e) {
                     forwardToErrorPage(e.getMessage(), req, res);
                 }
+            }default:{
+                RequestDispatcher editView = req.getRequestDispatcher(ORDER_LIST_URL);
+                editView.forward(req, res);
             }
+
         }
     }
 

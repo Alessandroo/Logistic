@@ -30,7 +30,7 @@
 
 				<div class="label"><label for="type">Type(max spead):</label></div>
 				<select name="type" id="type" required autocomplete="off">
-					<option value="Class 1">Class1 - 16km/ch</option>
+					<option selected value="Class 1">Class1 - 16km/ch</option>
 					<option value="Class 2">Class2 - 40km/ch</option>
 					<option value="Class 3">Class3 - 64km/ch</option>
 					<option value="Class 4">Class4 - 97km/ch</option>
@@ -39,13 +39,10 @@
 
 				<div class="label"><label for="delivery-class">Delivery class:</label></div>
 				<select name="delivery" id="delivery-class" required autocomplete="off">
-					<option value="Fast">Fast</option>
+					<option selected value="Fast">Fast</option>
 					<option value="Mid">Mid</option>
 					<option value="Slow">Slow</option>
 				</select><br>
-
-				<div class="label"><label for="start-time">Start time:</label></div>
-				<input style="width: 58%" type="datetime-local" name="time" id="start-time" required autocomplete="off" value="${order.timeTable.timeBegin}"></br>
 
 				<div class="label"><label for="point-a">Point A:</label></div>
 				<input type="text" name="point-a" id="point-a" required autocomplete="off" value="${order.road.pointBegin.x} ${order.road.pointBegin.y}"></br>
@@ -55,7 +52,7 @@
 
 				<input type="hidden" name="id" id="id" value="${order.id}"></br>
 				<input type="hidden" name="client" value="${sessionScope.user.id}">
-				<input type="hidden" name="type" value="add">
+				<input type="hidden" name="action" value="add">
 				<button type="submit">Send order</button>
 
 			</div>
